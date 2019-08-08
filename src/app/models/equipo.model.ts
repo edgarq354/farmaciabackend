@@ -1,0 +1,20 @@
+export interface EquipoModel {
+  length?: any;
+     Id?: string,
+     Tipo?: string,
+     Color?: string,
+     Marca?: string,
+     Modelo?: string,
+     CodigoAlcaldia ?: string,
+     NroSerie ?: string,
+     SistemaOperativo ?: string,
+     NroIp ?: string,
+     Red ?: string,
+     NombreUsuario?: string,
+     NombrePuesto?: string,
+     IdTbUsuario?: string,
+     IdTbPuesto?: string,
+     Fecha?: string,
+     NombreFuncionario?: string,
+     SessionUser?: string,
+  }  

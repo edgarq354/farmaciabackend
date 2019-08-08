@@ -1,0 +1,173 @@
+<!-- Modal de ACCIONES utilizadas anteriormente en este Tipo de Problema-->
+<div class="modal fade" id="accionTipoProblemaModal" tabindex="-1" role="dialog" aria-labelledby="accionTipoProblemaModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <h5 class="modal-title text-center" id="nuevoModalLabel"> LISTA DE SOLUCIONES</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+                        <div class="table-responsive" style="overflow-x:inherit;">
+                            <table class="table table-striped table-bordered table-hover">
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                </tr>
+                                <tr *ngFor="let row of listaConfiguracion; let i=index">
+                                    <td>{{i}}</td>
+                                    <td>{{row.Variable}}</td>
+                                    <td>{{row.Dato}}</td>
+
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-fill" data-dismiss="modal" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal REGISTRAR NUEVO-->
+
+<div class="modal fade" id="idModalTipo" tabindex="-1" role="dialog" aria-labelledby="idModalTipoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                <h5 class="modal-title" id="idModalTipoLabel">Tipo de Problema</h5>
+            </div>
+            <div class="modal-body">
+
+                <form class="was-validated" novalidate #f2="ngForm" (ngSubmit)="insertarORmodificarConfiguracion('idModalTipo',f2.valid);">
+                    <div class="mb-3">
+                        <div class="content ">
+                            <div class="form-group">
+                                <label>Nombre: <span class="text-danger">*</span></label>
+                                <input type="text" minlength="3" class="form-control" [(ngModel)]="configuracion.Variable" name="Variable" placeholder="Nombre... " required #Variable="ngModel">
+                                <small [hidden]="Variable.valid || (Variable.pristine && !f2.submitted)" class="text-danger">
+                                      Ingrese el Nombre min(3)
+                                      </small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+
+                        <div class="content ">
+                            <div class="form-group">
+                                <label>Dato: <span class="text-danger">*</span></label>
+
+                                <textarea class="form-control" name="Dato" rows="8" [(ngModel)]="configuracion.Dato" #Dato='ngModel' placeholder='[
+                                "HARDWARE",
+                                "SOFTWARE",
+                                "DESARROLLO DE SOFTWARE",
+                                "REPORTE"
+                       ]'></textarea>
+
+                                <small [hidden]="Dato.valid || (Dato.pristine && !f2.submitted)" class="text-danger">
+                                      Ingrese el Dato min(3)
+                                      </small>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="modal-footer btnGuardarCancelar">
+                        <button type="button" class="btn bt
+                      n-success btn-fill" type="submit">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal" (click)="limpiar();">CANCELAR</button>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- *****************************************.C O N T E N I D O.***************************************** -->
+<div class="content">
+    <div class="container-fluid">
+        <!--Contenido-->
+
+        <block-ui>
+            <!-- Your app markup here -->
+        </block-ui>
+        <div class="row">
+
+
+
+
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="content">
+                        <h4 class="title">Lista de Configuración</h4>
+                        <div class="toolbar">
+                            <h4 class="card-title">
+                                <button class="btn btn-success btn-fill" data-toggle="modal" data-target="#idModalTipo"><i class="fa fa-plus"></i>NUEVO</button>
+                            </h4>
+                        </div>
+                        <div class="fresh-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0 " width="100%;" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nro</th>
+                                        <th>Nombre</th>
+                                        <th class="disabled-sorting text-right">Acción</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <tr *ngFor="let row of listaConfiguracion; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td>{{row.Variable}}</td>
+                                        <td class="text-right ">
+                                            <a class="btn btn-simple btn-warning btn-icon" (click)="cargarOReliminar(i, false)" data-toggle="modal" data-target="#idModalTipo" rel="tooltip" data-placement="top" title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-simple btn-danger btn-icon remove" (click)="cargarOReliminar(i, true)" rel="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-times"></i></a>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+            <!--Fin Contenido-->
+        </div>
+
+
+    </div>
+</div>

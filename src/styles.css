@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+select>.selectpicker {
+    width: 0px;
+}
+
+.modal-backdrop {
+    position: inherit;
+}
+
+.form-control {
+    padding: 2px 3px;
+    height: 31px;
+}
+
+table.dataTable .btn-simple.btn-icon {
+    padding: 0px 2px;
+}
+
+.input-group-btn .btn {
+    padding: 2px 3px;
+    height: 31px;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+    padding: 5px 5px;
+}
+
+.table>caption+thead>tr:first-child>td,
+.table>caption+thead>tr:first-child>th,
+.table>colgroup+thead>tr:first-child>td,
+.table>colgroup+thead>tr:first-child>th,
+.table>thead:first-child>tr:first-child>td,
+.table>thead:first-child>tr:first-child>th {
+    height: 35px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.sidebar .nav li>a {
+    margin: 0px 0px 0px;
+    border-radius: 2px;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    font-weight: bold;
+}
+
+.nav-tabs>li>a {
+    color: #026d84;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0em 0em;
+    margin-left: 0px;
+}
+
+body {
+    font-size: 13px;
+}
+
+table.dataTable>thead>tr>th,
+table.dataTable>tbody>tr>th,
+table.dataTable>tfoot>tr>th,
+table.dataTable>thead>tr>td,
+table.dataTable>tbody>tr>td,
+table.dataTable>tfoot>tr>td {
+    padding: 1px 8px !important;
+}

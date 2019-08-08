@@ -1,0 +1,109 @@
+<!-- *****************************************.C O N T E N I D O.***************************************** -->
+
+<!--Contenido-->
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="header">
+                <h4 class="title">{{titulo}}</h4>
+                <p class="category">/Reporte Mensual</p>
+            </div>
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title">Año:</label>
+
+                            <select class="custom-select    browser-default form-control" [(ngModel)]="anio" name="anio" id="anio" required>
+                               <option selected value="2019" >2019</option>
+                             </select>
+                            <div class="invalid-feedback">Selecciones el año</div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="title">Mes:</label>
+                            <select class="custom-select    browser-default form-control" [(ngModel)]="mes" name="mes" id="mes" required>
+                                                            <option selected value="1" >Enero</option>
+                                                            <option selected value="2" >Febrero</option>
+                                                            <option selected value="3" >Marzo</option>
+                                                            <option selected value="4" >Abril</option>
+                                                            <option selected value="5" >Mayo</option>
+                                                            <option selected value="6" >Junio</option>
+                                                            <option selected value="7" >Julio</option>
+                                                            <option selected value="8" >Agosto</option>
+                                                            <option selected value="9" >Septiembre</option>
+                                                            <option selected value="10" >Octubre</option>
+                                                            <option selected value="11" >Noviembre</option>
+                                                            <option selected value="12" >Diciembre</option>
+                                                         </select>
+                            <div class="invalid-feedback">Selecciones la fecha</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-success btn-fill" (click)='listarServicios();'>Generar</button>
+                <button class="btn btn-info btn-fill" (click)='Copiar("exportExcel");'><i class="fa fa-file-pdf-o"></i>Copiar Tabla</button>
+
+
+            </div>
+        </div>
+        <!-- end card -->
+
+    </div>
+    <!--  end col-md-6  -->
+
+    <!--LISTA DE SERVICIOS SIN ACEPTAR-->
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="content">
+                <div class="toolbar">
+                    <h4 class="card-title"> </h4>
+                </div>
+                <div class="" id="exportExcel">
+                    <table class="table" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Detalle</th>
+                                <th>Tipo</th>
+                                <th>Jorge Junior</th>
+                                <th>Alexander</th>
+                                <th>Elder</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let row of servicios; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{row.Nombre}}</td>
+                                <td>{{row.Tipo}}</td>
+                                <td>{{row.junior}}</td>
+                                <td>{{row.alex}} </td>
+                                <td>{{row.elder}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+    <!--MODAL FIN-->

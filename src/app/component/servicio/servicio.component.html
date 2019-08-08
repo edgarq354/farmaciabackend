@@ -1,0 +1,840 @@
+<!-- Modal ACTUALIZAR DETALLE-->
+<div class="modal fade" id="servicioModal" tabindex="-1" role="dialog" aria-labelledby="servicioModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title text-center" id="nuevoModalLabel">ACTUALIZAR EL SERVICIO</h5>
+                <label for="validationTextarea">Fecha: </label>{{servicio.FechaSolicitud | date:"d-MMM HH:mm"}} <br>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Funcionario</label>
+                                        <input type="text" class="form-control" value="{{servicio.Funcionario}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Operador</label>
+                                        <input type="text" class="form-control" value="{{servicio.Operador}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Tipo de Problema</label>
+                                        <input type="text" class="form-control" value="{{servicio.TipoProblema}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Problema</label>
+                                        <input type="text" class="form-control" value="{{servicio.Problema}}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <input type="text" class="form-control btn btn-info btn-fill btn-wd" *ngIf='servicio.Estado=="SIN ATENDER"' value="{{servicio.Estado}}">
+                                        <input type="text" class="form-control btn btn-warning btn-fill btn-wd" *ngIf='servicio.Estado=="EN PROCESO"' value="{{servicio.Estado}}">
+                                        <input type="text" class="form-control btn btn-success btn-fill btn-wd" *ngIf='servicio.Estado=="COMPLETADO"' value="{{servicio.Estado}}">
+                                        <input type="text" class="form-control btn btn-danger btn-fill btn-wd" *ngIf='servicio.Estado=="CANCELADO"' value="{{servicio.Estado}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Descripción del problema</label>
+                                        <textarea rows="3" class="form-control" style="resize: none;" [(ngModel)]="servicio.Detalle"> </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-fill" (click)="insertarORmodificarServicio('servicioModal',true)">Actualizar</button>
+                <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Modal DETALLE DE SERVICIO-->
+<div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title text-center" id="nuevoModalLabel">DETALLE DE SERVICIO</h5>
+                <label for="validationTextarea">Fecha: </label>{{servicio.FechaSolicitud | date:"d-MMM HH:mm"}} <br>
+
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Funcionario</label>
+                                        <input type="text" class="form-control" value="{{servicio.Funcionario}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Operador</label>
+                                        <input type="text" class="form-control" value="{{servicio.Operador}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Tipo de Problema</label>
+                                        <input type="text" class="form-control" value="{{servicio.TipoProblema}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Problema</label>
+                                        <input type="text" class="form-control" value="{{servicio.Problema}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <input type="text" class="form-control btn btn-info btn-fill btn-wd" *ngIf='servicio.Estado=="SIN ATENDER"' value="{{servicio.Estado}}">
+                                        <input type="text" class="form-control btn btn-warning btn-fill btn-wd" *ngIf='servicio.Estado=="EN PROCESO"' value="{{servicio.Estado}}">
+                                        <input type="text" class="form-control btn btn-success btn-fill btn-wd" *ngIf='servicio.Estado=="COMPLETADO"' value="{{servicio.Estado}}">
+                                        <input type="text" class="form-control btn btn-danger btn-fill btn-wd" *ngIf='servicio.Estado=="CANCELADO"' value="{{servicio.Estado}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Descripción del problema</label>
+                                        <textarea rows="3" class="form-control" style="resize: none;">{{servicio.Detalle}} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" *ngIf='servicio.Estado=="EN PROCESO" || servicio.Estado=="COMPLETADO" '>
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fecha de Aceptación</label>
+                                            <input type="text" class="form-control" value="{{servicio.FechaAceptado | date:'d-MMM HH:mm'}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fecha de Calificación</label>
+                                            <input type="text" class="form-control" value="{{servicio.FechaCalificacion | date:'d-MMM HH:mm'}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fecha de Conclusión</label>
+                                            <input type="text" class="form-control" value="{{servicio.FechaCompletado | date:'d-MMM HH:mm'}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Calificación</label>
+                                            <input type="text" class="form-control" value="{{servicio.Calificacion}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Descripción de Calificación</label>
+                                            <textarea rows="3" class="form-control" style="resize: none;">{{servicio.DetalleCalificacionFuncionario}} </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" *ngIf='servicio.Estado=="CANCELADO"'>
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fecha de Aceptación</label>
+                                            <input type="text" class="form-control" value="{{servicio.FechaAceptado | date:'d-MMM HH:mm'}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fecha de Cancelación</label>
+                                            <input type="text" class="form-control" value="{{servicio.FechaCancelado | date:'d-MMM HH:mm'}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Descripción de Cancelación</label>
+                                            <textarea rows="3" class="form-control" style="resize: none;">{{servicio.DetalleCancelo}} </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12" *ngIf='servicio.Estado=="EN PROCESO" || servicio.Estado=="COMPLETADO" '>
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Lista de soliciones</h4>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let laccion of listaAcciones; let i=index">
+                                            <td>{{laccion.Fecha| date:"d-MMM HH:mm"}}</td>
+                                            <td>{{laccion.Detalle}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-fill" data-dismiss="modal" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Modal NUEVO SERVICIO-->
+<div class="modal fade" id="nuevoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoModalLabel">
+    <form novalidate #fInsertarServicio="ngForm" (ngSubmit)="insertarORmodificarServicio('nuevoModal',fInsertarServicio.valid);">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    <h5 class="modal-title">NUEVO SERVICIO</h5>
+                    <label>Fecha: <b>{{fecha | date:"d-MMM"}}</b></label> <br>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12" *ngIf='TipoUsuario_=="Administrador" || TipoUsuario_=="Operador"'>
+                            <div class="form-group">
+                                <label>Funcionario :  <span class="text-danger">*</span> </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon btn btn-primary" (click)="this.listarUsuario();"><i class="fa fa-refresh"> </i></span>
+                                    <select class="selectpicker form-control" data-title="Seleccion un Funcionario" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="opcionFuncionario" name="opcionFuncionario" #opcionFuncionarioValidar="ngModel"
+                                        required>
+                                                        <option selected value="" >Seleccione un funcionario</option>
+                                                      <option   *ngFor="let tusuario of usuarioFuncionarios;" value="{{tusuario.id}}">{{tusuario.Nombre}}</option>
+                                                 </select>
+                                </div>
+                                <small [hidden]="opcionFuncionarioValidar.valid || (opcionFuncionarioValidar.pristine && !fInsertarServicio.submitted)" class="text-danger">
+                                        Seleccione el Funcionario </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" *ngIf='TipoUsuario_!="Operador"'>
+                            <div class="form-group">
+                                <label *ngIf='TipoUsuario_=="Funcionario"'>Solicitar a :  <span class="text-danger">*</span></label>
+                                <label *ngIf='TipoUsuario_=="Administrador" || TipoUsuario_=="Operador"'>Operador:  <span class="text-danger">*</span></label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon btn btn-primary" (click)="this.listarOperador();"><i class="fa fa-refresh"> </i></span>
+                                    <select class="selectpicker form-control" data-title="Seleccion un Operador" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="Opcion" name="Opcion" #opcionValidar="ngModel" required>
+                                                    <option selected value="Todos" >Todos</option>
+                                                    <option   *ngFor="let tusuario of usuarios;" value="{{tusuario.id}}">{{tusuario.Nombre}}</option>
+                                                </select>
+                                    <small [hidden]="opcionValidar.valid || (opcionValidar.pristine && !fInsertarServicio.submitted)" class="text-danger">
+                                                        Seleccione el Operador </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Tipo: <span class="text-danger">*</span></label>
+                                        <select class="selectpicker" title="Sel. Tipo" required [(ngModel)]="seleccionarTipo" name="seleccionarTipo" #seleccionarTipoValidar="ngModel" (change)="CargarListaProblemas()" (click)="updated();">
+                                            <option   *ngFor="let trow of listaConfiguracionTipoProblema; let i=index; " value="{{trow}}">{{trow}}</option>             
+                                        
+                                                </select>
+                                        <small [hidden]="seleccionarTipoValidar.valid || (seleccionarTipoValidar.pristine && !fInsertarServicio.submitted)" class="text-danger">
+                                                        Seleccione el Tipo </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Problema: <span class="text-danger">*</span></label>
+                                        <select class="selectpicker" [(ngModel)]="seleccionarProblema" name="seleccionarProblema" #seleccionarProblemaValidar="ngModel" data-style="form-control" data-live-search="true" title="Seleccione un problema" required>
+                                        <option *ngFor="let row of listaProblemas;" value="{{row.id}}" >{{row.Nombre}}</option>
+                                        </select>
+                                        <small [hidden]="seleccionarProblemaValidar.valid || (seleccionarProblemaValidar.pristine && !fInsertarServicio.submitted)" class="text-danger">
+                                                Seleccione el Problema </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" *ngIf='TipoUsuario_=="Administrador" || TipoUsuario_=="Operador"'>
+                                    <div class="form-group">
+                                        <label>Estado: <span class="text-danger">*</span></label>
+                                        <select class="selectpicker" required [(ngModel)]="seleccionarEstado" name="seleccionarEstado" #seleccionarEstadoValidar="ngModel">
+                                                   <option  value="SIN ATENDER">SIN ATENDER</option>
+                                                   <option value="EN PROCESO">EN PROCESO</option>
+                                                   <option value="COMPLETADO">COMPLETADO</option>
+                                                </select>
+                                        <small [hidden]="seleccionarEstadoValidar.valid || (seleccionarEstadoValidar.pristine && !fInsertarServicio.submitted)" class="text-danger">
+                                                       Seleccione el Estado </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+
+                            <label for="validationTextarea">Descripción del problema: <span class="text-danger">*</span></label>
+                            <textarea style="height:100px; max-height: 100px;min-height: 100px;resize: none;" minlength="5" [(ngModel)]="servicio.Detalle" name="detalle" #detalleInsertar="ngModel" class="form-control" placeholder="Ingrese una descripción" required></textarea>
+                            <small [hidden]="detalleInsertar.valid || (detalleInsertar.pristine && !fInsertarServicio.submitted)" class="text-danger">
+                                    Ingrese el Nombre min(5)
+                                    </small>
+                            <h4></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success btn-fill">GUARDAR</button>
+                    <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<!-- Modal ASIGNAR SERVICIO a un OPERADOR-->
+<div class="modal fade" id="asignarModal" tabindex="-1" role="dialog" aria-labelledby="asignarModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <h5 class="modal-title" id="asignarModalLabel">ASIGNAR SERVICIO</h5>
+                <label for="validationTextarea">Fecha: <b>{{fecha | date:"d-MMM"}}</b></label> <br>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+                            <label *ngIf='TipoUsuario_=="Administrador" || TipoUsuario_=="Operador"'>Operador: </label>
+                            <div class="input-group">
+                                <span class="input-group-addon btn btn-primary" (click)="this.listarOperador();"><i class="fa fa-refresh"> </i></span>
+                                <select class="form-control selectpicker" data-title="Seleccion un Operador" data-style="btn-default btn-block" data-menu-style="dropdown-blue" data-live-search="true" [(ngModel)]="Opcion" name="Opcion" required>
+                                                    <option   *ngFor="let tusuario of usuarios;" value="{{tusuario.id}}">{{tusuario.Nombre}}</option>
+                                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="AsignarOperador();" data-dismiss="modal">GUARDAR</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal CANCELAR SERVICIO-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">DESCARTAR SERVICIO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="was-validated">
+                    <div class="mb-3">
+                        <label for="validationTextarea"><b>Problema:</b> {{servicio.Detalle}}- {{servicio.Problema}}</label><br>
+                        <b><label for="validationTextarea">Motivo de anulación:</label></b>
+                        <textarea style="height:100px; max-height: 100px;min-height: 100px;" style="resize: none;" [(ngModel)]="servicio.DetalleCancelo" name="DetalleCancelo" class="form-control is-invalid" id="validationTextarea" placeholder="Ingrese un motivo." required></textarea>
+                        <div class="invalid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer btnGuardarCancelar">
+
+                        <button type="button" class="btn btn-success btn-fill" data-dismiss="modal" (click)='cancelarServicio();' data-dismiss="modal">ENVIAR</button>
+                        <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">CANCELAR</button>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal CALIFICAR SERVICIO-->
+<div class="modal fade" id="ModalCalificar" tabindex="-1" role="dialog" aria-labelledby="ModalCalificarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                <h5 class="modal-title" id="exampleModalLabel">CALIFICAR EL SERVICIO</h5>
+
+            </div>
+            <div class="modal-body">
+
+                <form class="was-validated">
+                    <div class="mb-3">
+                        <label for="validationTextarea"><b>Problema:</b> {{servicio.Detalle}}</label><br>
+                        <b><label for="validationTextarea">¿Qué tal fue el servicio?</label></b>
+                        <textarea style="height:100px; max-height: 100px;min-height: 100px;" [(ngModel)]="servicio.DetalleCalificacionFuncionario" name="DetalleCalificacionFuncionario" class="form-control is-invalid" id="validationTextarea" placeholder="Ingrese un motivo." required></textarea>
+                        <div class="invalid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Calificación : </label>
+
+                        <select name="cities" class="selectpicker" data-style="btn-default btn-block" data-menu-style="dropdown-blue" [(ngModel)]="Calificacion" name="Calificacion" required>
+                                                         <option selected value="BUENO" >BUENO</option>
+                                                         <option selected value="REGULAR" >REGULAR</option>
+                                                         <option selected value="MALO" >MALO</option>
+                                                      </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="modal-footer btnGuardarCancelar">
+
+                        <button type="button" class="btn btn-success btn-fill" data-dismiss="modal" (click)='calificarServicio();'>GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal de ACCIONES utilizadas anteriormente en este Tipo de Problema-->
+<div class="modal fade" id="accionTipoProblemaModal" tabindex="-1" role="dialog" aria-labelledby="accionTipoProblemaModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                <h5 class="modal-title text-center" id="nuevoModalLabel"> LISTA DE SOLUCIONES</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+                        <div class="table-responsive" style="overflow-x:inherit;">
+                            <table class="table table-striped table-bordered table-hover">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                </tr>
+                                <tr *ngFor="let laccion of listaAcciones; let i=index">
+                                    <td>{{laccion.Fecha| date:"d-MMM HH:mm"}}</td>
+                                    <td>{{laccion.Detalle}}</td>
+
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-fill" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal de ACCIONES en el SERVICIO-->
+<div class="modal fade" id="accionModal" tabindex="-1" role="dialog" aria-labelledby="accionModalLabel">
+    <form novalidate #fInsertarAccion="ngForm" (ngSubmit)="insertarAccion('accionModal',fInsertarAccion.valid);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title">LISTA DE ACCIONES</h5>
+                    <label>Fecha: <b>{{fecha | date:"d-MMM"}}</b></label> <br>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <label for="validationTextarea">Descripción de la acción tomada:<span class="text-danger">*</span> </label><br>
+
+                            <textarea minlength="5" style="width: 100%; resize: none;" [(ngModel)]="accion.Detalle" name="detalle" class="fom-control is-invalid" placeholder="Ingrese una descripción" #detalleAccion="ngModel" required></textarea>
+                            <small [hidden]="detalleAccion.valid || (detalleAccion.pristine && !fInsertarAccion.submitted)" class="text-danger">
+                                    Ingrese descripción del servicio min(5)
+                                    </small>
+
+
+                            <div class="table-responsive" style="overflow-x:inherit;">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                                    <tr *ngFor="let laccion of listaAcciones; let i=index">
+                                        <td>{{laccion.Fecha| date:"d-MMM HH:mm"}}</td>
+                                        <td>{{laccion.Detalle}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="checkFinalizar" type="checkbox" checked="" [(ngModel)]="cbFinalizar" [ngModelOptions]="{standalone: true}">
+                                    <label for="checkFinalizar">
+                                   Finalizar Soporte
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-fill btn-success">GUARDAR</button>
+                    <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<!-- Modal LISTA DE TIPOS DE PROBLEMAS-->
+<div class="modal fade" id="Modal_TipoServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lista de Tipos de Problemas</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" style="overflow-x:inherit;">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                        </tr>
+                        <tr *ngFor="let ttipos of tiposervicios; let i=index">
+                            <td>{{ttipos.Nombre}}</td>
+                            <td>{{ttipos.Tipo}}</td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" style="width:100%;" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--####################        FIN MODAL     ######################-->
+
+
+
+
+
+
+
+
+
+<div class="card" [hidden]="fguardar">
+
+    <div class="content content-full-width">
+        <ul role="tablist" class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <a href="#icon-info" data-toggle="tab" (click)="listarServicios_sin_atender();"><i class="fa fa-user-md"></i> Sin Atender</a>
+            </li>
+            <li>
+                <a href="#icon-account" data-toggle="tab" (click)="listarServicios_en_proceso();"><i class="fa fa-spinner  "></i> En Proceso</a>
+            </li>
+            <li>
+                <a href="#icon-style" data-toggle="tab" (click)="listarServicios_completado();"><i class="fa fa-check"></i> Completados</a>
+            </li>
+            <li>
+                <a href="#icon-settings" data-toggle="tab" (click)="listarServicios_cancelado();"><i class="fa fa-times"></i> Cancelados</a>
+            </li>
+            <li>
+                <button class="btn btn-success btn-fill" data-toggle="modal" data-target="#nuevoModal"> <i class="fa fa-user-md"></i>  Nuevo Servicio </button>
+            </li>
+            <li *ngIf='TipoUsuario_=="Administrador"'>
+                <button class="btn btn-info btn-fill" (click)="migrarListaUsuario();"> <i *ngIf="spinMigrar==false" class="fa fa-refresh"></i>  <i *ngIf="spinMigrar==true" class="fa fa-refresh fa-spin"></i> Migrar Usuarios </button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="icon-info" class="tab-pane active">
+                <div class="table-responsive" style="overflow-x:inherit;">
+                    <table id="DtSinAtender" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Problema</th>
+                                <th *ngIf='TipoUsuario_!="Funcionario"'>Funcionario</th>
+                                <th>Detalle</th>
+                                <th class="disabled-sorting text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tservicio of servicios; let i=index;">
+                                <th scope="row">{{i+1}}</th>
+
+                                <td>{{tservicio.FechaSolicitud | date:"d-MMM HH:mm" }}</td>
+                                <td>{{tservicio.TipoProblema}}</td>
+                                <td>{{tservicio.Problema}}</td>
+                                <td *ngIf='TipoUsuario_!="Funcionario"'> {{tservicio.Funcionario}}</td>
+                                <td>{{tservicio.Detalle}}</td>
+                                <td style="text-align: center;">
+                                    <a class="btn btn-simple btn-primary btn-icon" (click)="cargarOReliminar(i,false);" data-toggle="modal" data-target="#servicioModal" rel="tooltip" data-placement="top" title="Ver y Editar">
+                                        <s><i class="fa fa-eye"></i></s>
+                                    </a>
+                                    <a *ngIf='TipoUsuario_=="Funcionario"' class="btn btn-simple btn-danger btn.icon" (click)='cargarOReliminar(i, false)' data-toggle="modal" data-target="#exampleModal" rel="tooltip" data-placement="top" title="Cancelar">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    <a *ngIf='TipoUsuario_=="Operador" || TipoUsuario_=="Administrador"' type="button" (click)='aceptarServicio(i)' class="btn btn-simple btn-success btn-icon" rel="tooltip" data-placement="top" title="Atender">
+                                        <i class="fa fa-check-square-o"></i>
+                                    </a>
+                                    <a class="btn btn-info btn-simple btn-icon" *ngIf='TipoUsuario_=="Administrador"' data-toggle="modal" data-target="#asignarModal"><i class="fa fa-compress" (click)="cargarOReliminar(i, false);" rel="tooltip" data-placement="top" title="Asignar"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="icon-account" class="tab-pane">
+                <div class="table-responsive" style="overflow-x:inherit;">
+                    <table id="DtEnProceso" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Problema</th>
+                                <th *ngIf='TipoUsuario_!="Funcionario"'>Funcionario</th>
+                                <th>Detalle</th>
+                                <th>Operador</th>
+                                <th class="disabled-sorting text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tservicio of servicios_en_proceso; let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{tservicio.FechaSolicitud | date:"d-MMM HH:mm"}}</td>
+                                <td>{{tservicio.TipoProblema}}</td>
+                                <td>{{tservicio.Problema}}</td>
+                                <td *ngIf='TipoUsuario_!="Funcionario"'> {{tservicio.Funcionario}}</td>
+                                <td>{{tservicio.Detalle}}</td>
+                                <td> {{tservicio.Operador}}</td>
+                                <td>
+                                    <a class="btn btn-simple btn-primary btn-icon" (click)="cargarEnProceso(i,false); listarAccionesServicio(tservicio.id);" data-toggle="modal" data-target="#detalleModal" rel="tooltip" data-placement="top" title="Ver">
+                                        <s><i class="fa fa-eye"></i></s>
+                                    </a>
+                                    <a *ngIf='TipoUsuario_=="Operador" || TipoUsuario_=="Administrador"' class="btn btn-simple btn-ssucces btn-outline  btn-icon" (click)="listarAccionesServicio(tservicio.id);cargarEnProceso(i,false);" data-toggle="modal" data-target="#accionModal" rel="tooltip"
+                                        data-placement="top" title="Agregar Solución">
+                                        <i class="fa fa-reorder">A</i>
+                                    </a>
+                                    <a *ngIf='TipoUsuario_=="Operador" || TipoUsuario_=="Administrador"' class="btn btn-simple btn-warning btn-outline  btn-icon" (click)="listarAccionesPorTipoProblema(tservicio.IdTbTipoProblema);" data-toggle="modal" data-target="#accionTipoProblemaModal"
+                                        rel="tooltip" data-placement="top" title="Ver Soluciones Anteriores">
+                                        <i class="fa fa-gears"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="icon-style" class="tab-pane">
+                <div class="table-responsive" style="overflow-x:inherit;">
+                    <table id="DtCompletado" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Fecha</th>
+                                <th *ngIf='TipoUsuario_!="Funcionario"'>Funcionario</th>
+                                <th>Detalle Problema</th>
+                                <th *ngIf='TipoUsuario_!="Operador"'>Detalle Calificación</th>
+                                <th *ngIf='TipoUsuario_!="Operador"'>Calificación</th>
+
+                                <th>Operador</th>
+                                <th class="disabled-sorting text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tservicio of servicios_completados; let i=index;">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{tservicio.FechaSolicitud | date:"d-MMM HH:mm"}}</td>
+                                <td *ngIf='TipoUsuario_!="Funcionario"'> {{tservicio.Funcionario}}</td>
+                                <td>{{tservicio.Detalle}}</td>
+                                <td *ngIf='TipoUsuario_!="Operador"'>{{tservicio.DetalleCalificacionFuncionario}}</td>
+                                <td *ngIf='TipoUsuario_!="Operador"'>{{tservicio.Calificacion}}</td>
+                                <td> {{tservicio.Operador}}</td>
+                                <td style="text-align: center;" class="td-actions">
+                                    <a class="btn btn-simple btn-primary btn-icon" (click)="cargarCompletado(i,false);listarAccionesServicio(tservicio.id);" data-toggle="modal" data-target="#detalleModal" rel="tooltip" data-placement="top" title="Ver">
+                                        <s><i class="fa fa-eye" ></i></s>
+                                    </a>
+                                    <a *ngIf='TipoUsuario_=="Funcionario"' rel="tooltip" title="Calificar" class="btn btn-social btn-round btn-info btn-simple btn-icon" (click)='cargarCompletado(i, false);' data-toggle="modal" data-target="#ModalCalificar
+                               " rel="tooltip" data-placement="top" title="Calificar">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </a>
+                                    <a *ngIf='TipoUsuario_=="Operador" || TipoUsuario_=="Administrador"' class="btn btn-simple btn-warning btn-outline btn-icon" (click)="listarAccionesServicio(tservicio.id);" data-toggle="modal" data-target="#accionTipoProblemaModal
+                               " rel="tooltip" data-placement="top" title="Ver Soluciones Anteriores">
+                                        <i class="fa fa-gears"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="icon-settings" class="tab-pane">
+                <div class="table-responsive" style="overflow-x:inherit;">
+                    <table id="DtCancelado" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Fecha</th>
+                                <th *ngIf='TipoUsuario_!="Funcionario"'>Funcionario</th>
+                                <th>Detalle</th>
+                                <th>Detalle cancelo</th>
+                                <th>Operador</th>
+                                <th class="disabled-sorting text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tservicio of servicios_cancelados; let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{tservicio.FechaSolicitud | date:"d-MMM HH:mm"}}</td>
+                                <td *ngIf='TipoUsuario_!="Funcionario"'> {{tservicio.Funcionario}}</td>
+                                <td>{{tservicio.Detalle}}</td>
+                                <td>{{tservicio.DetalleCancelo}}</td>
+                                <td> {{tservicio.Operador}}</td>
+                                <td style="text-align: center;">
+                                    <a class="btn btn-simple btn-primary btn-icon" (click)="cargarCancelado(i,false);listarAccionesServicio(tservicio.id);" data-toggle="modal" data-target="#detalleModal" rel="tooltip" data-placement="top" title="Ver">
+                                        <s><i class="fa fa-eye"></i></s>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<!-- *****************************************.C O N T E N I D O.***************************************** -->

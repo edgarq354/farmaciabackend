@@ -1,0 +1,47 @@
+<div class="wrapper wrapper-full-page">
+    <div class="full-page login-page" data-color="azure" data-image="../../../assets/img/full-screen-image-1.jpg">
+
+        <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                        <form method="#" action="#">
+
+                            <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
+                            <div class="card card-hidden">
+                                <div class="header text-center">Login</div>
+                                <div class="content">
+                                    <div class="form-group">
+                                        <label>Usuario</label>
+                                        <input type="text" placeholder="Usuario" name="Usuario" [(ngModel)]='Usuario' class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="password" placeholder="Contraseña" name="Password" [(ngModel)]='Password' class="form-control">
+                                    </div>
+
+                                </div>
+                                <div class="footer text-center">
+                                    <button *ngIf="cargando()=='false'" type="submit" class="btn btn-fill btn-info btn-wd" (click)='IniciarSesion();'>
+                                        Iniciar Sesion</button>
+                                    <button *ngIf="cargando()=='true'" type="button" class="btn btn-fill btn-info btn-wd">    
+                                  <i class="fa fa-refresh  fa-spin " ></i> Iniciando Sesion</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+<a [routerLink]="['/home']">Principal</a>

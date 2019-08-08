@@ -1,0 +1,421 @@
+<!-- *****************************************.C O N T E N I D O.***************************************** -->
+
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+</style>
+
+
+
+
+<div class="content">
+    <div class="container-fluid">
+        <!--Contenido-->
+
+        <block-ui>
+            <!-- Your app markup here -->
+        </block-ui>
+        <div class="row" style="padding-top:30px;">
+            <!--
+                FORMULARIO NUEVO
+            -->
+            <div class="col-md-12" [hidden]="actualizar==true">
+                <div class="card">
+
+                    <div class="col-md-12">
+                        <h4 class="title"> {{titulo}}</h4>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Funcionario :  <span class="text-danger">*</span> </label>
+                            <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="usuario.id" name="IdUsuario2" #IdUsuario2="ngModel" (ngModelChange)="actualizarIdUsuarioPuesto()" required>
+                                <option  selected value="" >Seleccione un funcionario:</option>
+                                <option   *ngFor="let tusuario of usuarioLista;" value="{{tusuario.id}}">{{tusuario.Nombre}}</option>
+                            </select>
+
+
+                            <small [hidden]="usuario.id!=''" class="text-danger">
+                                    Seleccione el funcionario.
+                                </small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Puesto :  <span class="text-danger">*</span> </label>
+
+                            <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="IdTbPuesto" name="IdTbPuesto" #IdTbPuesto2="ngModel" (ngModelChange)="actualizarIdUsuarioPuesto()" required>        
+                                        <option selected  value="" >Seleccione el Puesto...</option>              
+                                        <option  value="-1" >OTRO</option>              
+                                        <option  *ngFor="let tpuesto of puestoLista;" value="{{tpuesto.Id}}">{{tpuesto.Nombre}}</option>
+                                </select>
+
+                            <small [hidden]="IdTbPuesto!=''" class="text-danger">
+                                        Seleccione el Puesto o agrega uno nuevo seleccionando Otros
+                                    </small>
+                        </div>
+                        <div class="form-group" [hidden]="swPuesto()">
+                            <input type="text" class="form-control" [(ngModel)]="NombrePuesto" name="NombrePuesto" placeholder="Puesto . . ">
+                        </div>
+                    </div>
+
+
+                    <div class="content table-responsive table-full-width">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Cod. Alcaldia</th>
+                                    <th>Nro. Serie</th>
+                                    <th>Nro. IP</th>
+                                    <th>Red</th>
+                                    <th>Ac.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of equipoListaNuevo; let i=index;">
+                                    <td>
+                                        <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="row.Tipo">
+                                                    <option selected value="MONITOR" >MONITOR</option>           
+                                                    <option value="CPU" >CPU</option>
+                                                    <option value="PORTATIL" >PORTATIL</option>
+                                                    <option value="TECLADO" >TECLADO</option>
+                                                    <option value="MOUSE" >MOUSE</option>
+                                                    <option value="IMPRESORA" >IMPRESORA</option>
+                                                    <option value="ESCANER" >ESCANER</option>
+                                        </select> colega
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Marca" [(ngModel)]="row.Marca" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Modelo" [(ngModel)]="row.Modelo" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Cod. Alcaldia" [(ngModel)]="row.CodigoAlcaldia" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Nro Serie" [(ngModel)]="row.NroSerie" class="form-control">
+                                    </td>
+                                    <td>
+                                        <div [hidden]="getTipoEquipo(row.Tipo)">
+                                            <input type="text" placeholder="Nro Ip" [(ngModel)]="row.NroIp" class="form-control">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div [hidden]="getTipoEquipo(row.Tipo)">
+                                            <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="row.Red">
+                                                            <option selected value="" >Selc.</option>           
+                                                            <option selected value="WIFI" >WIFI</option>           
+                                                            <option value="ETHERNET" >ETHERNET</option>
+                                                </select>
+                                        </div>
+                                    </td>
+                                    <td class="td-actions text-right">
+                                        <div [hidden]="getTipoEquipo(row.Tipo)">
+                                            <input style="visibility: hidden; width: 1px; height: 1px;" type="file" id="image_uploads" name="image_uploads" accept=".txt" (change)="fileChangedPorLista(i,$event);">
+                                            <label for="image_uploads" style="cursor: pointer;" rel="tooltip" data-placement="top" title="Buscar Archivo" (click)="insertarIndex(i);" class="btn btn-danger btn-simple btn-icon">
+                                                 <i class="fa fa-archive"  style="color:rgb(39, 86, 214); " ></i>
+                                            </label>
+                                        </div>
+                                        <button type="button" rel="tooltip" (click)="eliminarLista(i)" rel="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-simple btn-icon">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+
+
+
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="footer">
+                        <button class="btn btn-primary btn-fill" (click)="agregarLista();" style="margin-right: 15px;">Agregar</button>
+                        <button type="button" class="btn btn-success btn-fill" style="margin-right: 15px;" type="submit" (click)="insertarListaEquipo();">GUARDAR</button>
+                        <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal" (click)="limpiarListaEquipo();  botonActualizar(true);">CANCELAR</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-md-12 col-sm-12" [hidden]="nuevo==true">
+                <div class="card">
+                    <div class="content">
+
+                        <form class="was-validated" novalidate #f2="ngForm" (ngSubmit)="insertarORmodificarTipo('idModalTipo',f2.valid);">
+                            <h3>{{titulo}}</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Funcionario :  <span class="text-danger">*</span> </label>
+                                        <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="usuario.id" name="IdUsuario2" #IdUsuario2="ngModel" required>
+                                                 <option  selected value="" >Seleccione un funcionario:</option>
+                                                  <option   *ngFor="let tusuario of usuarioLista;" value="{{tusuario.id}}">{{tusuario.Nombre}}</option>
+                                    </select>
+
+
+                                        <small [hidden]="IdUsuario2.valid || (IdUsuario2.pristine && !f2.submitted)" class="text-danger">
+                                        Seleccione el funcionario.
+                                    </small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Puesto :  <span class="text-danger">*</span> </label>
+
+                                        <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="IdTbPuesto" name="IdTbPuesto" #IdTbPuesto2="ngModel" required>        
+                                            <option selected  value="" >Seleccione el Puesto...</option>              
+                                            <option  value="-1" >OTRO</option>              
+                                            <option  *ngFor="let tpuesto of puestoLista;" value="{{tpuesto.Id}}">{{tpuesto.Nombre}}</option>
+                                    </select>
+
+                                        <small [hidden]="IdTbPuesto2.valid || (IdTbPuesto2.pristine && !f2.submitted)" class="text-danger">
+                                            Seleccione el Puesto o agrega uno nuevo seleccionando Otros
+                                        </small>
+                                    </div>
+                                    <div class="form-group" [hidden]="swPuesto()">
+                                        <input type="text" class="form-control" [(ngModel)]="NombrePuesto" name="NombrePuesto" placeholder="Puesto . . ">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Equipo :  <span class="text-danger">*</span> </label>
+                                        <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="equipo.Tipo" name="Equipo" required #Equipo="ngModel" (ngModelChange)="esPc();">
+                                                    <option selected  value="" >Seleccionar el Tipo</option>           
+                                                    <option value="MONITOR" >MONITOR</option>           
+                                                    <option value="CPU" >CPU</option>
+                                                    <option value="PORTATIL" >PORTATIL</option>
+                                                    <option value="TECLADO" >TECLADO</option>
+                                                    <option value="MOUSE" >MOUSE</option>
+                                                    <option value="IMPRESORA" >IMPRESORA</option>
+                                                    <option value="ESCANER" >ESCANER</option>
+                                        </select>
+
+                                        <small [hidden]="Equipo.valid || (Equipo.pristine && !f2.submitted)" class="text-danger">
+                                        Seleccione el Tipo de Equipo
+                                    </small>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Marca :</label>
+                                        <input type="text" placeholder="Marca" [(ngModel)]="equipo.Marca" class="form-control" name="Marca">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Color :</label>
+                                        <input type="text" placeholder="Color" [(ngModel)]="equipo.Color" class="form-control" name="Color">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Modelo : </label>
+                                        <input type="text" placeholder="Modelo" [(ngModel)]="equipo.Modelo" class="form-control" name="Modelo">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Codigo de Alcaldia : </label>
+                                        <input type="text" placeholder="Codigo de Alcaldia" [(ngModel)]="equipo.CodigoAlcaldia" class="form-control" name="CodigoAlcaldia">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Nro de Serie : </label>
+                                        <input type="text" placeholder="Número de Serie" [(ngModel)]="equipo.NroSerie" class="form-control" name="NroSerie">
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4 col-sm-12" [hidden]="pc==true">
+                                    <div class="form-group">
+                                        <label>Sistema Operativo :</label>
+                                        <input type="text" placeholder="SistemaOperativo" [(ngModel)]="equipo.SistemaOperativo" class="form-control" name="SistemaOperativo">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12" [hidden]="pc==true">
+                                    <div class="form-group">
+                                        <label>Nro de Ip :</label>
+                                        <input type="text" placeholder="NroIp" [(ngModel)]="equipo.NroIp" class="form-control" name="NroIp">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12" [hidden]="pc==true">
+                                    <div class="form-group">
+                                        <label>Red :</label>
+                                        <input type="text" placeholder="Red" [(ngModel)]="equipo.Red" class="form-control" name="Red">
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12" [hidden]="pc==true">
+                                    <div class="Block">
+                                        <label id="lbl">Seleccionar Archivo :</label>
+                                        <input type='file' (change)="fileChanged($event)">
+                                    </div>
+                                    <div class="content">
+                                        <div class="form-group">
+                                            <label>Nota.txt :  </label>
+                                            <pre style="max-height: 150px;">{{texto}}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-12 col-sm-12">
+                                    <button type="button" class="btn btn-success btn-fill" style="margin-right: 15px;" type="submit">GUARDAR</button>
+                                    <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal" (click)="limpiar();  botonNuevo(true);">CANCELAR</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+                    FIN FORMULARIO NUEVO
+                -->
+
+
+
+
+
+
+            <div class="col-md-12 col-sm-12" [hidden]="nuevo==false||actualizar==false">
+                <div class="card">
+                    <div class="content">
+                        <h4 class="title">Lista de Equipos</h4>
+                        <div class="toolbar">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="selectpicker form-control" data-style="btn-default btn-block" data-live-search="true" data-menu-style="dropdown-blue" [(ngModel)]="usuario.id" name="IdUsuario2" #IdUsuario2="ngModel">
+                                                     <option  selected value="" >Seleccione un funcionario:</option>
+                                                      <option   *ngFor="let tusuario of usuarioLista;" value="{{tusuario.id}}">{{tusuario.Nombre}}</option>
+                                                </select>
+                                    <small [hidden]="IdUsuario2.valid || (IdUsuario2.pristine && !f2.submitted)" class="text-danger">
+                                       Seleccione el funcionario.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue" [(ngModel)]="anio" name="anio">
+                                      <option  selected value="{{anio}}" >{{anio}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-secondary" type="button" (click)='listarEquiposPorIdUsuarioAnio();'>
+                                Buscar
+                            </button>
+
+
+
+                            <div class="col-md-6 form-group">
+                                <button class="btn btn-success btn-fill" style="margin-right: 15px;" (click)="botonActualizar(false);"><i class="fa fa-plus"></i>NUEVO</button>
+                                <a href="/assets/DatosEquipo.bat" target="_self" class="btn btn-primary btn-fill"><i class="fa fa-download"></i> Descargar .bat</a>
+                            </div>
+
+
+                        </div>
+                        <div class="fresh-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0 " width="100%;" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nro</th>
+                                        <th>Fecha</th>
+                                        <th>Tipo</th>
+                                        <th>Marca</th>
+                                        <th>Nro Ip</th>
+                                        <th>Cod. Alcaldia</th>
+                                        <th>Nro. Serie</th>
+                                        <th>Puesto</th>
+                                        <th>Funcionario</th>
+                                        <th>Usuario</th>
+                                        <th class="disabled-sorting text-right">Acción</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <tr *ngFor="let row of equipos; let i=index;">
+                                        <td>{{i+1}}</td>
+                                        <td>{{row.Fecha| date:"d-MMM HH:mm"}}</td>
+                                        <td>{{row.Tipo}}</td>
+                                        <td>{{row.Marca}}</td>
+                                        <td>{{row.NroIp}}</td>
+                                        <td>{{row.CodigoAlcaldia}}</td>
+                                        <td>{{row.NroSerie}}</td>
+                                        <td>{{row.NombrePuesto}}</td>
+                                        <td>{{row.NombreFuncionario}}</td>
+                                        <td>{{row.NombreUsuario}}</td>
+                                        <td class="text-right ">
+                                            <button class="btn btn-simple btn-warning btn-icon" (click)="cargarOReliminar(i, false);botonNuevo(false);" rel="tooltip" data-placement="top" title="Editar">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                            <a class="btn btn-simple btn-danger btn-icon remove" (click)="cargarOReliminar(i, true)" rel="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-times"></i></a>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+
+            </div>
+
+
+            <!--Fin Contenido-->
+        </div>
+    </div>
