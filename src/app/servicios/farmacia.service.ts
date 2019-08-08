@@ -29,14 +29,13 @@ export class FarmaciaService {
     /**
      * Esta función lista los espacios.     
      */
-    listarTipo(pin,jsonData) {
+    listarFarmacia(pin,jsonData) {
         let body = jsonData;
         //console.log(JSON.stringify(body));
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', pin);
         let options = new RequestOptions({ headers: headers });
         return this._http.post(
-                                this.url+'/'+this.nombre + '/mostrar', 
+                                this.url+this.nombre + 'lista_farmacia', 
                                 body, 
                                 options
                             ).pipe(map(res => res.json())); 
@@ -47,17 +46,13 @@ export class FarmaciaService {
      * @param {string} Descripcion - Descripcion del espacio
      * @param {string} SessionUser - null por defecto.
      */
-    insertarTipo(pin, Nombre,Tipo, SessionUser) {
-        let body = {
-            "Nombre": Nombre,
-            "Tipo": Tipo,
-            "SessionUser": SessionUser
-        };
+    insertarFarmacia(pin, jsonData, SessionUser) {
+        let body = jsonData;
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', pin);
+  
         let options = new RequestOptions({ headers: headers });
         return this._http.post(
-                                this.url + '/' + this.nombre , 
+                                this.url   + this.nombre , 
                                 body, 
                                 options).pipe(map(res => res.json())); 
     }
@@ -68,18 +63,12 @@ export class FarmaciaService {
      * @param {string} Descripcion - Descripcion del espacio
      * @param {string} SessionUser - null por defecto.
      */
-    modificarTipo(pin, Id, Nombre,Tipo, SessionUser) {
-        let body = {
-            "Id": Id,
-            "Nombre": Nombre,
-            "Tipo": Tipo,
-            "SessionUser": SessionUser
-        };
+    modificarFarmacia(pin, jsonData, SessionUser) {
+        let body = jsonData;
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', pin);
         let options = new RequestOptions({ headers: headers });
         return this._http.put(
-                                this.url + '/' + this.nombre , 
+                                this.url  + this.nombre , 
                                 body, 
                                 options).pipe(map(res => res.json())); 
     }
@@ -89,17 +78,16 @@ export class FarmaciaService {
      * @param {string} Id - Identificador unico del espacio     
      * @param {string} SessionUser - null por defecto.
      */
-    eliminarTipo(pin, Id, SessionUser) {
+    eliminarFarmacia(pin, Id, SessionUser) {
         let body = {
             "id": Id,
             "SessionUser": SessionUser     
         };
         //console.log("eliminar:"+JSON.stringify(body));
         let headers = new Headers({ 'Content-Type': 'application/json' });
-        headers.append('Authorization', pin);
         let options = new RequestOptions({ headers: headers });
         return this._http.put(
-                                this.url + '/' + this.nombre + '/eliminar', 
+                                this.url   + this.nombre + 'eliminar', 
                                 body, 
                                 options).pipe(map(res => res.json())); 
     }

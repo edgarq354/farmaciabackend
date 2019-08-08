@@ -5,32 +5,22 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL,DataTables } from '../../servicios/global';
 import { globalFunciones } from '../../servicios/globalFunciones';
 // llamo a los servicios
-import { FarmaciaService } from '../../servicios/tipoproblema.service';
-import {  InterfaceTipoProblemaModel } from '../../models/tipoproblema.model';
- 
-//Llama al servicio de Usuarios.
-import { ConfiguracionService } from '../../servicios/configuracion.service';
-import { InterfaceConfiguracionModel } from '../../models/configuracion.model';
-
+import { FarmaciaService } from '../../servicios/farmacia.service';
+import {  FarmaciaInterface } from '../../models/farmacia.model';
+  
 // Import BlockUI decorator & optional NgBlockUI type
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-
-// llamo a las Acciones
-import { AccionService } from '../../servicios/accion.service';
-import { AccionModel } from '../../models/accion.model';
-
+ 
 declare var $:any;
 
 @Component({
-  selector: 'app-tipoproblema',
-  templateUrl: './tipoproblema.component.html',
+  selector: 'app-farmacia',
+  templateUrl: './farmacia.component.html',
   providers: [
-    TipoProblemaService,
-    AccionService,
-    globalFunciones,
-    ConfiguracionService],
+    FarmaciaService,
+    globalFunciones]
 })
-export class TipoproblemaComponent  {
+export class FarmaciaComponent  {
   // Decorator wires up blockUI instance
   @BlockUI() blockUI: NgBlockUI;
 
@@ -39,22 +29,18 @@ export class TipoproblemaComponent  {
   public mensaje : string;
   public pin: string;
 
-  public tipoproblema: InterfaceTipoProblemaModel;
-  public tipoproblemas : InterfaceTipoProblemaModel[]; 
+  public farmacia: FarmaciaInterface;
+  public farmaciaLista : FarmaciaInterface[]; 
  
   public swVer:boolean=false;
-  public listaAcciones : AccionModel[];
 
   //Lista de Tipo de Probleam en configuracion
-  public listaConfiguracionTipoProblema : InterfaceConfiguracionModel[];
 
 
   constructor(private _route: ActivatedRoute,
-    private _router: Router,
-    private _accionService: AccionService,
+    private _router: Router, 
     private _globalFuncion:globalFunciones,
-    private _tipoproblemaService: TipoProblemaService,
-    private _configuracionService: ConfiguracionService
+    private _farmaciaService: FarmaciaService 
     ) {
       if( sessionStorage.getItem("datosUser")==null){
         _router.navigate(['/' ]);
@@ -62,13 +48,27 @@ export class TipoproblemaComponent  {
 
       this.titulo = 'Tipo de Problema';        
       this.pin= GLOBAL.pin;
-      this.tipoproblema={
-        id:null,
-        Nombre:'',
-        Tipo:''
+      this.farmacia={
+        id:'',
+        nombre:'',
+        direccion_logo:'',
+        direccion_banner:'',
+        razon_social:'',
+        nit:'',
+        correo:'',
+        telefono:'',
+        direccion:'',
+        fecha_registro:'',
+        calificacion:'',
+        ranking:'',
+        id_tbcomentario:'',
+        latitud:'',
+        longitud:'',
+        indicacion:'',
+        abierto_cerrado:'',
+        turno:''
       };
-      this.tipoproblemas=[];  
-      this.listaConfiguracionTipoProblema=[];
+      this.farmaciaLista=[];  
       this.mensaje=""; 
      this.swVer=false;
     }
@@ -76,52 +76,38 @@ export class TipoproblemaComponent  {
   }
 
   ngOnInit() {
-   this.listarTipos();
-   this.listarConfiguracionTipoProblema();
+   this.listarFarmacia();
   }
 
 verificarDatos()
 {
   return false;
 }
-  listarAccionesPorTipoProblema(IdTbTipoProblema){
-    let jsonData={"opcion":"IdTbTipoProblema",
-                  "IdTbTipoProblema":IdTbTipoProblema};
-  
-    this._accionService.listarAccion(this.pin,jsonData).subscribe(            
-      result => {        
-        if (result.Exito != 1) {
-          this.mensaje = result.Dato;          
-        }else{
-          //console.log(result.Dato);
-          this.listaAcciones=result.Dato;  
-        }       
-     
-      },
-      error => {
-        this._globalFuncion.alertError("Error de conexión!");
-      }
-    )
-  }
+ 
 
-  ngAfterViewInit(){
+ngAfterViewInit(){
     // Init Tooltips
     $('[rel="tooltip"]').tooltip();
 }
 // metodo para cargar la lista de Tipos
-listarTipos(){
+listarFarmacia(){
     // Start blocking
   this.blockUI.start('Cargando...'); 
 
-  let jsonData={"opcion":"Lista"};
-  this._tipoproblemaService.listarTipo(this.pin,jsonData).subscribe(            
-    result => {        
-      if (result.Exito != 1) {
-        this.mensaje = result.Dato;          
+  let jsonData={
+    id_usuario:"",
+    texto:"",
+    latitud:0,
+    longitud:0
+   };
+  this._farmaciaService.listarFarmacia(this.pin,jsonData).subscribe(            
+    result => {    
+      console.log(JSON.stringify(result));    
+      if (result.suceso != 1) {
+        this.mensaje = result.mensaje;          
       }else{
-        //console.log(result.Dato);
-        
-        this.tipoproblemas=result.Dato; 
+         
+        this.farmaciaLista=result.lista;
         if(this.swVer==true){
           $('#datatables').dataTable().fnDestroy();
         }else{
@@ -131,7 +117,7 @@ listarTipos(){
         setTimeout(function(){
           $('#datatables').dataTable(DataTables);
         $('[rel="tooltip"]').tooltip();
-      },0);
+        },0);
       }
       this.blockUI.stop(); 
     },
@@ -142,39 +128,20 @@ listarTipos(){
   )
 }
  
-// metodo para cargar la lista de configuracion "TipoProblema"
-listarConfiguracionTipoProblema(){
-  // Start blocking
 
-let jsonData={"Variable":"TipoProblema"};
-this._configuracionService.listarConfiguracion(this.pin,jsonData).subscribe(            
-  result => {        
-    if (result.Exito != 1) {
-      this.mensaje = result.Dato;          
-    }else{
-     //  console.log("TipoProblema:"+result.Dato);
-      this.listaConfiguracionTipoProblema=result.Dato; 
-    }
-  },
-  error => {
-    this._globalFuncion.alertError("Error de conexión!");
-  }
-)
-}
 
 // metodo para insertar espacio
-insertarTipo(){
+insertarFarmacia(){
   // Start blocking
   this.blockUI.start('Insertando...'); 
-  this._tipoproblemaService.insertarTipo(
+  this._farmaciaService.insertarFarmacia(
                                         this.pin, 
-                                        this.tipoproblema.Nombre, 
-                                        this.tipoproblema.Tipo, 
+                                        this.farmacia, 
                                         ''
                                       ).subscribe(            
     result => {        
       this._globalFuncion.alertExito(result.Dato);
-      this.listarTipos();
+      this.listarFarmacia();
       this.blockUI.stop();
     },
     error => {
@@ -185,19 +152,17 @@ insertarTipo(){
 }
 
 // metodo para modificar espacio
-modificarTipo(){
+modificarFarmacia(){
   // Start blocking
   this.blockUI.start('Modificando...'); 
-  this._tipoproblemaService.modificarTipo(
+  this._farmaciaService.modificarFarmacia(
                                           this.pin, 
-                                          this.tipoproblema.id, 
-                                          this.tipoproblema.Nombre, 
-                                          this.tipoproblema.Tipo, 
+                                          this.farmacia, 
                                           '' 
                                        ).subscribe(            
     result => {        
       this._globalFuncion.alertExito(result.Dato);
-      this.listarTipos();
+      this.listarFarmacia();
       this.blockUI.stop();
     },
     error => {
@@ -208,17 +173,17 @@ modificarTipo(){
 }
 
 // metodo para eliminar espacio    
-eliminarTipo(){
+eliminarFarmacia(){
   // Start blocking
   this.blockUI.start('Eliminando...'); 
-  this._tipoproblemaService.eliminarTipo(
+  this._farmaciaService.eliminarFarmacia(
                                         this.pin, 
-                                        this.tipoproblema.id, 
+                                        this.farmacia.id, 
                                         ""
                                       ).subscribe(            
     result => {        
       this._globalFuncion.alertExito(result.Dato);
-      this.listarTipos();
+      this.listarFarmacia();
       this.blockUI.stop();
     },
     error => {
@@ -233,24 +198,20 @@ eliminarTipo(){
 //******************************************************************************* */
 
 // evento al dar click al boton guardar espacio
-insertarORmodificarTipo(idModal,isValid:boolean){    
+insertarORmodificarFarmacia(idModal,isValid:boolean){    
   if(isValid==true){
   $('#'+idModal).modal('hide'); 
-  if(this.tipoproblema.Nombre.length>=3){
-    if(this.tipoproblema.Tipo.length>=3){
-    if(this.tipoproblema.id==null){   
+  if(this.farmacia.nombre.length>=3){
+    if(this.farmacia.id==null){   
       /*this.mensaje='insertar -> ' 
                             + 'DescripcionEspacio: '+ this.espacio.Descripcion;*/   
-      this.insertarTipo();        
+      this.insertarFarmacia();        
     }else{
       /*this.mensaje='modificar -> ' 
                             + 'Id: '+ this.espacio.Id + ','
                             + 'Descripcion: '+ this.espacio.Descripcion;*/
       
-      this.modificarTipo();
-    }
-  }else{
-      this.mensaje='Seleccione el tipo de problema.';
+      this.modificarFarmacia();
     }
   }else{
     this.mensaje='Al menos debe haber 3 caracteres.';
@@ -260,20 +221,35 @@ insertarORmodificarTipo(idModal,isValid:boolean){
 
 // evento de la lista para cargar o eliminar un espacio
 cargarOReliminar(valor, opcion){                   
-  this.tipoproblema=this.tipoproblemas[valor];
+  this.farmacia=this.farmaciaLista[valor];
  // this.mensaje='Preparado para modificar: ' + (valor+1);
 
   if(opcion){ 
-     this.eliminarTipo();
+     this.eliminarFarmacia();
   }     
 }  
 
 // limpiamos los elementos
 limpiar(){
-  this.tipoproblema= {
-    id:null,
-    Nombre:'',
-    Tipo:''
+  this.farmacia= {
+    id:'',
+    nombre:'',
+    direccion_logo:'',
+    direccion_banner:'',
+    razon_social:'',
+    nit:'',
+    correo:'',
+    telefono:'',
+    direccion:'',
+    fecha_registro:'',
+    calificacion:'',
+    ranking:'',
+    id_tbcomentario:'',
+    latitud:'',
+    longitud:'',
+    indicacion:'',
+    abierto_cerrado:'',
+    turno:''
   };
   this.mensaje='';
 }
