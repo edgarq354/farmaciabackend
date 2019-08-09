@@ -52,6 +52,12 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'fa fa-user-md'
   },
   {
+    path: '/farmacia-perfil',
+    title: 'Farmacia Perfil',
+    type: 'link',
+    icontype: 'fa fa-user-md'
+  },
+  {
     path: '/puesto',
     title: 'Puesto',
     type: 'link',

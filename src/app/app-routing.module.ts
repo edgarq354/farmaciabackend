@@ -57,7 +57,11 @@ const routes: Routes = [
       {
         path: 'farmacia',
         loadChildren: './component/farmacia/farmacia.module#FarmaciaModule'
-      }          
+      }  ,
+      {
+        path: 'farmacia-perfil/:id',
+        loadChildren: './component/farmacia-perfil/farmacia-perfil.module#FarmaciaPerfilModule'
+      }           
     ]
   }
 ];

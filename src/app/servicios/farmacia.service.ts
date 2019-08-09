@@ -25,7 +25,21 @@ export class FarmaciaService {
     }
 
 
-
+    /**
+     * Esta función lista los espacios.     
+     */
+    getFarmaciaPorId(pin,jsonData) {
+        let body = jsonData;
+        //console.log(JSON.stringify(body));
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(
+                                this.url+this.nombre + 'getFarmaciaPorId', 
+                                body, 
+                                options
+                            ).pipe(map(res => res.json())); 
+    }
+    
     /**
      * Esta función lista los espacios.     
      */

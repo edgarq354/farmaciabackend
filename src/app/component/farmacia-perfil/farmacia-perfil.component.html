@@ -1,0 +1,165 @@
+<!-- *****************************************.C O N T E N I D O.***************************************** -->
+
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+</style>
+
+
+
+
+<div class="content">
+    <div class="container-fluid">
+        <!--Contenido-->
+
+        <block-ui>
+            <!-- Your app markup here -->
+        </block-ui>
+        <div class="row" style="padding-top:30px;">
+            <!--
+                FORMULARIO NUEVO
+            -->
+            <div class="col-md-8">
+                <div class="card">
+
+                    <div class="col-md-12">
+                        <h4 class="title"> {{titulo}}</h4>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Nombre :</label>
+                            <input type="text" placeholder="Nombre" [(ngModel)]="farmacia.nombre" class="form-control" name="Nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Razon_social :</label>
+                            <input type="text" placeholder="Color" [(ngModel)]="farmacia.razon_social" class="form-control" name="Razon_social">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Nit : </label>
+                            <input type="text" placeholder="Nit" [(ngModel)]="farmacia.nit" class="form-control" name="Nit">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Correo : </label>
+                            <input type="text" placeholder="Correo" [(ngModel)]="farmacia.correo" class="form-control" name="Correo">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Telefono : </label>
+                            <input type="text" placeholder="Telefono" [(ngModel)]="farmacia.telefono" class="form-control" name="Telefono">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Dirección : </label>
+                            <input type="text" placeholder="Dirección" [(ngModel)]="farmacia.direccion" class="form-control" name="Direccion">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-12 col-sm-12">
+                        <div class="content table-responsive table-full-width">
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre dia</th>
+                                        <th>Hora inicio</th>
+                                        <th>Hora final</th>
+                                        <th>Activo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of horarioLista; let i=index;">
+                                        <td>
+                                            <input type="text" disabled placeholder="Id" [(ngModel)]="row.id" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" disabled placeholder="Nombre Dia" [(ngModel)]="row.nombre_dia" class="form-control">
+                                        </td>
+
+                                        <td>
+                                            <input type="text" placeholder="Hora de inicio" [(ngModel)]="row.hora_inicio" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="Hora final" [(ngModel)]="row.hora_fin" class="form-control">
+                                        </td>
+
+                                        <td class="td-actions text-right">
+                                            <bSwitch [switch-on-color]="'primary'" [(ngModel)]="row.activo">
+                                            </bSwitch>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <button class="btn btn-primary btn-fill" style="margin-right: 15px;">Actualizar</button>
+                        <button type="button" class="btn btn-danger btn-fill" style="margin-right: 15px;" type="submit">Cancelar</button>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-user">
+                    <div class="image">
+                        <img src="../../assets/img/full-screen-image-3.jpg" alt="..." />
+                    </div>
+                    <div class="content">
+                        <div class="author">
+                            <a href="#">
+                                <img class="avatar border-gray" src="../../assets/img/default-avatar.png" alt="..." />
+
+                                <h4 class="title">Tania Andrew<br />
+                                    <small>michael24</small>
+                                </h4>
+                            </a>
+                        </div>
+                        <p class="description text-center"> "Lamborghini Mercy <br> Your chick she so thirsty <br> I'm in that two seat Lambo"
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
+                        <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
+                        <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>

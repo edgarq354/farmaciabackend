@@ -25,6 +25,7 @@ export class FarmaciaComponent  {
   @BlockUI() blockUI: NgBlockUI;
 
   public titulo: string;
+  public url: string;
   public name: string;
   public mensaje : string;
   public pin: string;
@@ -45,8 +46,8 @@ export class FarmaciaComponent  {
       if( sessionStorage.getItem("datosUser")==null){
         _router.navigate(['/' ]);
     } else{
-
-      this.titulo = 'Tipo de Problema';        
+      this.url=GLOBAL.url;
+      this.titulo = 'Farmacia';        
       this.pin= GLOBAL.pin;
       this.farmacia={
         id:'',
@@ -89,6 +90,12 @@ ngAfterViewInit(){
     // Init Tooltips
     $('[rel="tooltip"]').tooltip();
 }
+
+abrirFarmacia(index)
+  {
+    this.farmacia=this.farmaciaLista[index];
+    this._router.navigate(['/farmacia-perfil',this.farmacia.id] );
+  }
 // metodo para cargar la lista de Tipos
 listarFarmacia(){
     // Start blocking
@@ -102,7 +109,7 @@ listarFarmacia(){
    };
   this._farmaciaService.listarFarmacia(this.pin,jsonData).subscribe(            
     result => {    
-      console.log(JSON.stringify(result));    
+     // console.log(JSON.stringify(result));    
       if (result.suceso != 1) {
         this.mensaje = result.mensaje;          
       }else{
@@ -140,7 +147,7 @@ insertarFarmacia(){
                                         ''
                                       ).subscribe(            
     result => {        
-      this._globalFuncion.alertExito(result.Dato);
+      this._globalFuncion.alertExito(result.mensaje);
       this.listarFarmacia();
       this.blockUI.stop();
     },
@@ -161,7 +168,7 @@ modificarFarmacia(){
                                           '' 
                                        ).subscribe(            
     result => {        
-      this._globalFuncion.alertExito(result.Dato);
+      this._globalFuncion.alertExito(result.mensaje);
       this.listarFarmacia();
       this.blockUI.stop();
     },
@@ -216,7 +223,10 @@ insertarORmodificarFarmacia(idModal,isValid:boolean){
   }else{
     this.mensaje='Al menos debe haber 3 caracteres.';
   }    
-}  
+} else
+{
+  console.log("no valido");
+} 
 }
 
 // evento de la lista para cargar o eliminar un espacio

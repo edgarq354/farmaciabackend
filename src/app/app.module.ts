@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { SidebarModule } from './component/sidebar/sidebar.module';
@@ -32,7 +34,7 @@ import { MapaComponent } from './component/mapa/mapa.component';
     AppComponent,
     IndexComponent,
     LoginComponent,
-    MapaComponent  
+    MapaComponent   
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { MapaComponent } from './component/mapa/mapa.component';
     SidebarModule,
     NavbarModule,
     FooterModule,
-    PagesnavbarModule
+    PagesnavbarModule,
+    JwBootstrapSwitchNg2Module,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' }],
   bootstrap: [AppComponent]

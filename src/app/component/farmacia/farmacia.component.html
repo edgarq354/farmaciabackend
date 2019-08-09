@@ -11,23 +11,62 @@
             </div>
             <div class="modal-body">
 
-                <form class="was-validated" novalidate #f2="ngForm" (ngSubmit)="insertarORmodificarFarmacia('idModalTipo',f2.valid);">
-                    <div class="mb-3">
-                        <div class="content">
-                            <div class="form-group">
-                                <label>Nombre: <span class="text-danger">*</span></label>
-                                <input type="text" minlength="3" class="form-control" [(ngModel)]="farmacia.nombre" name="Nombre" placeholder="Nombre... " required #Nombre="ngModel">
-                                <small [hidden]="Nombre.valid || (Nombre.pristine && !f2.submitted)" class="text-danger">
-                                      Ingrese el Nombre min(3)
-                                      </small>
-                            </div>
+                <form class="was-validated" novalidate #fUsuario="ngForm" (ngSubmit)="insertarORmodificarFarmacia('idModalTipo',fUsuario.valid);">
+                    <div class="photo col-md-4 col-sm-12">
+                    </div>
+                    <div class="photo col-md-3 col-sm-12 text-center">
+                        <img src="../../../assets/img/faces/face-0.jpg" style="width: 100px;" />
+                    </div>
+                    <div class="photo col-md-4 col-sm-12">
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group col-md-12 col-sm-12" [hidden]="true">
+                            <label>ID <span class="text-danger">*</span></label>
+                            <input type="text" placeholder="id" [(ngModel)]="farmacia.id" class="form-control" name="id" #id="ngModel">
+
                         </div>
 
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Nombre <span class="text-danger">*</span></label>
+                            <input type="text" minlength="5" placeholder="Nombre" [(ngModel)]="farmacia.nombre" class="form-control" name="Nombre" required #Nombre="ngModel">
+                            <small [hidden]="Nombre.valid || (Nombre.pristine && !fUsuario.submitted)" class="text-danger">
+                                        Ingrese el Nombre. min(5)   </small>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Razon Social <span class="text-danger">*</span></label>
+                            <input type="text" minlength="5" placeholder="Razon social" [(ngModel)]="farmacia.razon_social" class="form-control" name="Razon_social" required #Razon_social="ngModel">
+                            <small [hidden]="Razon_social.valid || (Razon_social.pristine && !fUsuario.submitted)" class="text-danger">
+                                        Ingrese su razon social. min(5)   </small>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Nit  </label>
+                            <input type="text" minlength="5" placeholder="Nit" [(ngModel)]="farmacia.nit" name="Nit" #Nit="ngModel" class="form-control">
+
+                        </div>
+
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Correo <span class="text-danger">*</span></label>
+                            <input type="text" minlength="5" placeholder="Nit" [(ngModel)]="farmacia.correo" class="form-control" name="Correo" required #Correo="ngModel">
+                            <small [hidden]="Correo.valid || (Correo.pristine && !fUsuario.submitted)" class="text-danger">
+                                                Ingrese su Numero de NIT. min(5)   </small>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Telefono <span class="text-danger">*</span></label>
+                            <input type="number" minlength="5" placeholder="Nit" [(ngModel)]="farmacia.telefono" class="form-control" name="Telefono" required #Telefono="ngModel">
+                            <small [hidden]="Telefono.valid || (Telefono.pristine && !fUsuario.submitted)" class="text-danger">
+                                                    Ingrese su Numero de NIT. min(5)   </small>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Dirección <span class="text-danger">*</span></label>
+                            <input type="text" minlength="5" placeholder="Dirección" [(ngModel)]="farmacia.direccion" class="form-control" name="Direccion" required #Direccion="ngModel">
+                            <small [hidden]="Direccion.valid || (Direccion.pristine && !fUsuario.submitted)" class="text-danger">
+                                                        Ingrese su Numero de NIT. min(5)   </small>
+                        </div>
                     </div>
 
                     <div class="modal-footer btnGuardarCancelar">
-                        <button type="button" class="btn bt
-                      n-success btn-fill" type="submit">GUARDAR</button>
+                        <button type="button" class="btn btn-primary btn-fill" type="submit">GUARDAR</button>
                         <button type="button" class="btn btn-danger btn-fill" data-dismiss="modal" (click)="limpiar();">CANCELAR</button>
 
                     </div>
@@ -56,10 +95,10 @@
             <div class="col-md-12 col-sm-12">
                 <div class="card">
                     <div class="content">
-                        <h4 class="title">Lista de Tipos de problema</h4>
+                        <h4 class="title">Lista de Farmacias</h4>
                         <div class="toolbar">
                             <h4 class="card-title">
-                                <button class="btn btn-success btn-fill" data-toggle="modal" data-target="#idModalTipo"><i class="fa fa-plus"></i>NUEVO</button>
+                                <button class="btn btn-primary btn-fill" data-toggle="modal" data-target="#idModalTipo"><i class="fa fa-plus"></i>NUEVO</button>
                             </h4>
                         </div>
                         <div class="fresh-datatables">
@@ -67,6 +106,7 @@
                                 <thead>
                                     <tr>
                                         <th>Nro</th>
+                                        <th>Logo</th>
                                         <th>Nombre</th>
                                         <th>Direccion</th>
                                         <th class="disabled-sorting text-right">Acción</th>
@@ -77,10 +117,15 @@
 
                                     <tr *ngFor="let row of farmaciaLista; let i=index;">
                                         <td>{{row.id}}</td>
+                                        <td>
+                                            <div class="img-container">
+                                                <img src="{{url+row.direccion_logo}}" style="width: 100px;" />
+                                            </div>
+                                        </td>
                                         <td>{{row.nombre}}</td>
                                         <td>{{row.direccion}}</td>
                                         <td class="text-right ">
-                                            <a class="btn btn-simple btn-warning btn-icon" (click)="cargarOReliminar(i, false)" data-toggle="modal" data-target="#idModalTipo" rel="tooltip" data-placement="top" title="Editar">
+                                            <a class="btn btn-simple btn-warning btn-icon" (click)="abrirFarmacia(i)" rel="tooltip" data-placement="top" title="Editar">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <a class="btn btn-simple btn-danger btn-icon remove" (click)="cargarOReliminar(i, true)" rel="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-times"></i></a>
