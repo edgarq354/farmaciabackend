@@ -24,6 +24,13 @@ export class FarmaciaService {
  
     }
 
+    subirImagenBanner(datos:any,id):Observable<any>{
+        return this._http.post(this.url+"prueba.php?id="+id, datos).pipe(map(res => res.json()));
+      }
+
+    subirImagenLogo(datos:any,id):Observable<any>{
+        return this._http.post(this.url+this.nombre +"subirImagenLogo&id="+id, datos).pipe(map(res => res.json()));
+      }
 
     /**
      * Esta función lista los espacios.     
@@ -77,12 +84,12 @@ export class FarmaciaService {
      * @param {string} Descripcion - Descripcion del espacio
      * @param {string} SessionUser - null por defecto.
      */
-    modificarFarmacia(pin, jsonData, SessionUser) {
+    modificarFarmacia(pin, jsonData) {
         let body = jsonData;
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this._http.put(
-                                this.url  + this.nombre , 
+        return this._http.post(
+                                this.url  + this.nombre+"actualizar_farmacia" , 
                                 body, 
                                 options).pipe(map(res => res.json())); 
     }

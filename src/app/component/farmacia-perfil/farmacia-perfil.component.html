@@ -125,7 +125,7 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <button class="btn btn-primary btn-fill" style="margin-right: 15px;">Actualizar</button>
+                        <button class="btn btn-primary btn-fill" (click)='ActualizarFarmacia()' style="margin-right: 15px;">Actualizar</button>
                         <button type="button" class="btn btn-danger btn-fill" style="margin-right: 15px;" type="submit">Cancelar</button>
 
                     </div>
@@ -135,29 +135,33 @@
             <div class="col-md-4">
                 <div class="card card-user">
                     <div class="image">
-                        <img src="../../assets/img/full-screen-image-3.jpg" alt="..." />
+                        <img src="{{url+farmacia.direccion_banner}}" alt="..." />
                     </div>
                     <div class="content">
                         <div class="author">
-                            <a href="#">
-                                <img class="avatar border-gray" src="../../assets/img/default-avatar.png" alt="..." />
+                            <a>
+                                <img class="avatar border-gray" src="{{url+farmacia.direccion_logo}}" alt="..." />
 
-                                <h4 class="title">Tania Andrew<br />
-                                    <small>michael24</small>
+                                <h4 class="title">{{farmacia.nombre}}<br />
+                                    <small>{{farmacia.abierto_cerrado}}</small>
                                 </h4>
                             </a>
                         </div>
-                        <p class="description text-center"> "Lamborghini Mercy <br> Your chick she so thirsty <br> I'm in that two seat Lambo"
+                        <p class="description text-center"> {{farmacia.direccion}}
                         </p>
                     </div>
                     <hr>
                     <div class="text-center">
                         <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                        <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                        <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
+                        <button class="btn btn-default btn btn-xs btn-fill " onclick="document.getElementById('fileImagenLogo').click();" style="margin-right: 15px;"><i class="fa fa-upload"></i>Logo<i *ngIf="loaderLogo" class="fa fa-refresh  fa-spin " ></i></button>
+                        <button class="btn btn-primary btn btn-xs btn-fill " onclick="document.getElementById('fileImagenBanner').click();" style="margin-right: 15px;"><i class="fa fa-upload"></i>Banner<i  *ngIf="loaderBanner"class="fa fa-refresh  fa-spin " ></i></button>
                     </div>
                 </div>
+            </div>
+
+            <div [hidden]="true">
+                <input type="file" name="file" id="fileImagenLogo" (change)="subiendoLogo($event)" accept="image/*" />
+                <input type="file" name="file" id="fileImagenBanner" (change)="subiendoBanner($event)" accept="image/*" />
             </div>
         </div>
 

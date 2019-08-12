@@ -5,6 +5,7 @@
 
 export const GLOBAL = {
   url: 'http://34.73.219.147/farmacia2/',
+  //url: 'http://localhost:8080/farmacia2/',
   url_server: 'http://34.73.219.147/farmacia2/',
   pin: '697791A5-EC07-42B1-A5D2-540A2F403CFB',
   session: null,
