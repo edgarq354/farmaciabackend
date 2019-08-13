@@ -61,7 +61,11 @@ const routes: Routes = [
       {
         path: 'farmacia-perfil/:id',
         loadChildren: './component/farmacia-perfil/farmacia-perfil.module#FarmaciaPerfilModule'
-      }           
+      } ,
+      {
+        path: 'turno',
+        loadChildren: './component/turno/turno.module#TurnoModule'
+      }            
     ]
   }
 ];

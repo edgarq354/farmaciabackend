@@ -44,7 +44,13 @@ export const ROUTES: RouteInfo[] = [
     title: 'Farmacia',
     type: 'link',
     icontype: 'fa fa-user-md'
-  } 
+  },
+  {
+    path: '/turno',
+    title: 'Turno',
+    type: 'link',
+    icontype: 'fa fa-user-md'
+  }  
 ];
 
 @Component({
