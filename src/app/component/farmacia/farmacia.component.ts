@@ -115,6 +115,7 @@ listarFarmacia(){
       }else{
          
         this.farmaciaLista=result.lista;
+        //this.actualizarActivo();
         if(this.swVer==true){
           $('#datatables').dataTable().fnDestroy();
         }else{
@@ -158,27 +159,7 @@ insertarFarmacia(){
   )
 }
 
-// metodo para modificar espacio
-modificarFarmacia(){
-  // Start blocking
-  this.blockUI.start('Modificando...'); 
-  this._farmaciaService.modificarFarmacia(
-                                          this.pin, 
-                                          this.farmacia, 
-                                          '' 
-                                       ).subscribe(            
-    result => {        
-      this._globalFuncion.alertExito(result.mensaje);
-      this.listarFarmacia();
-      this.blockUI.stop();
-    },
-    error => {
-      this.blockUI.stop();
-      this._globalFuncion.alertError("Error de conexión!");
-    }
-  )    
-}
-
+ 
 // metodo para eliminar espacio    
 eliminarFarmacia(){
   // Start blocking
@@ -213,13 +194,7 @@ insertarORmodificarFarmacia(idModal,isValid:boolean){
       /*this.mensaje='insertar -> ' 
                             + 'DescripcionEspacio: '+ this.espacio.Descripcion;*/   
       this.insertarFarmacia();        
-    }else{
-      /*this.mensaje='modificar -> ' 
-                            + 'Id: '+ this.espacio.Id + ','
-                            + 'Descripcion: '+ this.espacio.Descripcion;*/
-      
-      this.modificarFarmacia();
-    }
+    } 
   }else{
     this.mensaje='Al menos debe haber 3 caracteres.';
   }    
@@ -262,6 +237,20 @@ limpiar(){
     turno:''
   };
   this.mensaje='';
+}
+
+
+actualizarActivo()
+{
+  for(let i=0;i<this.farmaciaLista.length;i++)
+  {
+    let sw:boolean=false;
+    if(this.farmaciaLista[i].activo==true)
+    {
+      sw=true;
+    } 
+    this.farmaciaLista[i].activo=sw;
+  }
 }
  
 //lista datatables

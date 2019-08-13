@@ -109,6 +109,8 @@
                                         <th>Logo</th>
                                         <th>Nombre</th>
                                         <th>Direccion</th>
+                                        <th>Abierto</th>
+                                        <th>Estado</th>
                                         <th class="disabled-sorting text-right">Acción</th>
                                     </tr>
                                 </thead>
@@ -124,6 +126,11 @@
                                         </td>
                                         <td>{{row.nombre}}</td>
                                         <td>{{row.direccion}}</td>
+                                        <td>{{row.abierto_cerrado}}</td>
+                                        <td class="td-actions text-right">
+                                            <bSwitch [(ngModel)]="row.activo">
+                                            </bSwitch>
+                                        </td>
                                         <td class="text-right ">
                                             <a class="btn btn-simple btn-warning btn-icon" (click)="abrirFarmacia(i)" rel="tooltip" data-placement="top" title="Editar">
                                                 <i class="fa fa-edit"></i>

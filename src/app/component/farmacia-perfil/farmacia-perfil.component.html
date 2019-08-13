@@ -82,6 +82,13 @@
                         </div>
                     </div>
 
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Estado : </label>
+                            <bSwitch [(ngModel)]="farmacia.activo"> </bSwitch>
+                        </div>
+                    </div>
+
 
 
 
@@ -99,7 +106,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let row of horarioLista; let i=index;">
+                                    <tr *ngFor="let row of horarioLista; let i=index;  ">
+
                                         <td>
                                             <input type="text" disabled placeholder="Id" [(ngModel)]="row.id" class="form-control">
                                         </td>
@@ -115,7 +123,7 @@
                                         </td>
 
                                         <td class="td-actions text-right">
-                                            <bSwitch [switch-on-color]="'primary'" [(ngModel)]="row.activo">
+                                            <bSwitch [(ngModel)]="row.activo">
                                             </bSwitch>
                                         </td>
 
@@ -123,7 +131,19 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
+
+                    <input id="latitud" type="hidden" name="latitud" [(ngModel)]="farmacia.latitud">
+                    <input id="longitud" type="hidden" name="longitud" [(ngModel)]="farmacia.longitud">
+
+                    <div class="col-md-12 col-sm-12">
+                        <label>Ubicacion de su Domicilio: </label>
+                        <input id="pac-input" class="controls" type="text" placeholder="Search Box" class="form-control">
+                        <div id="map" style="height: 550px;"></div>
+                    </div>
+
+
                     <div class="footer">
                         <button class="btn btn-primary btn-fill" (click)='ActualizarFarmacia()' style="margin-right: 15px;">Actualizar</button>
                         <button type="button" class="btn btn-danger btn-fill" style="margin-right: 15px;" type="submit">Cancelar</button>

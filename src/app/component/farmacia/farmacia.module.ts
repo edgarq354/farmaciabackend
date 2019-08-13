@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FarmaciaRoutingModule  } from './farmacia-routing.module';
 //libreria de cargando.....
 import { BlockUIModule } from 'ng-block-ui';
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { BlockUIModule } from 'ng-block-ui';
     RouterModule.forChild(FarmaciaRoutingModule),
     FormsModule,
     ReactiveFormsModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    JwBootstrapSwitchNg2Module
   ]
 })
 export class FarmaciaModule { }

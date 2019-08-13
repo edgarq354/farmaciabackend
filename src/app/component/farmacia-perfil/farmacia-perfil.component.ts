@@ -7,10 +7,12 @@ import { globalFunciones } from '../../servicios/globalFunciones';
 // llamo a los servicios
 import { FarmaciaService } from '../../servicios/farmacia.service';
 import {  FarmaciaInterface } from '../../models/farmacia.model';
-import {  HorarioInterface } from '../../models/horario.model';
+import {  HorarioInterface,Horario } from '../../models/horario.model';
 // Import BlockUI decorator & optional NgBlockUI type
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { FarmaciaComponent } from '../farmacia/farmacia.component';
 declare var $:any;
+declare var mapboxgl:any;
 
 @Component({
   selector: 'app-farmacia-perfil',
@@ -35,13 +37,13 @@ export class FarmaciaPerfilComponent implements OnInit {
   public farmacia: FarmaciaInterface;
   public farmaciaLista : FarmaciaInterface[]; 
 
-  public horario: HorarioInterface;
-  public horarioLista : HorarioInterface[]; 
+
+  public horarioLista : Horario[]; 
   public swVer:boolean=false;
 
   state_default: boolean = true;
 
-
+ 
 
 
 
@@ -101,6 +103,41 @@ export class FarmaciaPerfilComponent implements OnInit {
     $('[rel="tooltip"]').tooltip();
   }
 
+  cargar_mapa(){
+  
+    
+ 
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZWRnYXJlbGlvIiwiYSI6ImNpcm5qMG05NzA4a3l0Mm5remI2dHptNmcifQ.OEmtFndm7IDHoCg_Gyt7Tw';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [ this.farmacia.longitud,this.farmacia.latitud], // starting position
+zoom: 15 // starting zoom
+});
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+map.on("load",()=>{
+map.resize();
+ 
+var marker = new mapboxgl.Marker({
+  draggable: true
+  })
+  .setLngLat([this.farmacia.longitud,this.farmacia.latitud])
+  .addTo(map);
+   
+  function onDragEnd() {
+  var lngLat = marker.getLngLat();
+  $("#latitud").val(lngLat.lat);
+  $("#longitud").val(lngLat.lng);
+  console.log(lngLat.lng + ', ' + lngLat.lat);
+  }
+  marker.on('dragend', onDragEnd);
+
+  });
+}
+
+  
 //SUBIR IMAGEN LOGO
   subiendoLogo(ev){
     let img:any = ev.target;
@@ -170,6 +207,9 @@ export class FarmaciaPerfilComponent implements OnInit {
          
         this.farmacia=result.farmacia;
         this.horarioLista=result.horario;
+        this.actualizarActivo();
+        this.actualizarActivoFarmacia();
+        this.cargar_mapa();
         if(this.swVer==true){
           $('#datatables').dataTable().fnDestroy();
         }else{
@@ -190,41 +230,56 @@ export class FarmaciaPerfilComponent implements OnInit {
   )
   }
 
+  actualizarActivoFarmacia()
+  {
+      let sw:boolean=false;
+      if(this.farmacia.activo==true)
+      {
+        sw=true;
+      } 
+      this.farmacia.activo=sw;
+  }
+
+  actualizarActivo()
+  {
+    for(let i=0;i<this.horarioLista.length;i++)
+    {
+      let sw:boolean=false;
+      if(this.horarioLista[i].activo==true)
+      {
+        sw=true;
+      } 
+      this.horarioLista[i].activo=sw;
+    }
+  }
+
     // metodo para cargar la lista de Tipos
     ActualizarFarmacia(){
       // Start blocking
     this.blockUI.start('Cargando...'); 
-    
+    this.farmacia.latitud=$("#latitud").val();
+    this.farmacia.longitud=$("#longitud").val();
     let jsonData={
       farmacia:this.farmacia,
       horario:this.horarioLista
      };
-     console.log("jsonDato:"+JSON.stringify(jsonData)); 
+     //console.log("jsonDato:"+JSON.stringify(jsonData)); 
     this._farmaciaService.modificarFarmacia(this.pin,jsonData).subscribe(            
       result => {    
-        console.log("result:"+JSON.stringify(result));    
+      //  console.log("result:"+JSON.stringify(result));    
         if (result.suceso != 1) {
-          this.mensaje = result.mensaje;          
+          this.mensaje = result.mensaje; 
+          this._globalFuncion.alertError(this.mensaje);         
         }else{
-           
-          this.farmacia=result.farmacia;
-          this.horarioLista=result.horario;
-          if(this.swVer==true){
-            $('#datatables').dataTable().fnDestroy();
-          }else{
-            this.swVer=true;
-          }
-    
-          setTimeout(function(){
-            $('#datatables').dataTable(DataTables);
-          $('[rel="tooltip"]').tooltip();
-          },0);
+          this._globalFuncion.alertExito(result.mensaje); 
+          this.getPerfilFarmacia();
         }
         this.blockUI.stop(); 
       },
       error => {
         this.blockUI.stop(); 
         this._globalFuncion.alertError("Error de conexión!");
+        console.log("error:"+JSON.stringify(error));    
       }
     )
     }

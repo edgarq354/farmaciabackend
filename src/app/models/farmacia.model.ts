@@ -17,6 +17,7 @@ export interface FarmaciaInterface {
     indicacion?: string;
     abierto_cerrado?:string;
     turno?:string;
+    activo?:boolean;
 }
 
 

@@ -40,41 +40,11 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'fa fa-home'
   },
   {
-    path: '/usuario',
-    title: 'Usuario',
-    type: 'link',
-    icontype: 'fa fa-user-plus'
-  },
-  {
     path: '/farmacia',
     title: 'Farmacia',
     type: 'link',
     icontype: 'fa fa-user-md'
-  },
-  {
-    path: '/farmacia-perfil',
-    title: 'Farmacia Perfil',
-    type: 'link',
-    icontype: 'fa fa-user-md'
-  },
-  {
-    path: '/puesto',
-    title: 'Puesto',
-    type: 'link',
-    icontype: 'fa fa-sitemap'
-  },
-  {
-    path: '/equipo',
-    title: 'Equipo',
-    type: 'link',
-    icontype: 'fa fa-television'
-  },
-  {
-    path: '/configuracion',
-    title: 'Configuracion',
-    type: 'link',
-    icontype: 'fa fa-cog'
-  }
+  } 
 ];
 
 @Component({
@@ -139,30 +109,14 @@ export class SidebarComponent implements OnInit {
     var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
     this.menuItems = ROUTES.filter(menuItem => menuItem);
 
-   
+   /*
       this.menuItems.push({
         path: '/servicio',
         title: 'Servicio',
         type: 'link',
         icontype: 'fa fa-user-md'
       });
-      this.menuItems.push({
-        path: '/',
-        title: 'Reporte',
-        type: 'sub',
-        icontype: 'fa fa-calendar-o',
-        children: [
-          {path: 'reporte', title: 'Reportes', ab:'Rp'},
-          {path: 'reportemensual', title: 'Reportes Mensuales', ab:'RpM'} 
-        ] });
-        this.menuItems.push({
-          path: '/tipoproblema',
-          title: 'Tipo de problema',
-          type: 'link',
-          icontype: 'fa fa-puzzle-piece'
-        });
-    
- 
+ */
 
     isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 

@@ -47,6 +47,7 @@
                             "node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js",
                             "src/assets/js/sweetalert2.js",
                             "src/assets/js/light-bootstrap-dashboard.js"
+
                         ]
                     },
                     "configurations": {
