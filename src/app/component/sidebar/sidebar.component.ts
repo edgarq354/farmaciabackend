@@ -46,8 +46,8 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'fa fa-user-md'
   },
   {
-    path: '/turno',
-    title: 'Turno',
+    path: '/farmacia-turno',
+    title: 'Farmacia Turno',
     type: 'link',
     icontype: 'fa fa-user-md'
   }  

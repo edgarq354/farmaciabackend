@@ -63,8 +63,8 @@ const routes: Routes = [
         loadChildren: './component/farmacia-perfil/farmacia-perfil.module#FarmaciaPerfilModule'
       } ,
       {
-        path: 'turno',
-        loadChildren: './component/turno/turno.module#TurnoModule'
+        path: 'farmacia-turno',
+        loadChildren: './component/farmacia-turno/farmacia-turno.module#FarmaciaTurnoModule'
       }            
     ]
   }

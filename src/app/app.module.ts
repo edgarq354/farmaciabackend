@@ -34,7 +34,7 @@ import { MapaComponent } from './component/mapa/mapa.component';
     AppComponent,
     IndexComponent,
     LoginComponent,
-    MapaComponent
+    MapaComponent 
   ],
   imports: [
     BrowserModule,

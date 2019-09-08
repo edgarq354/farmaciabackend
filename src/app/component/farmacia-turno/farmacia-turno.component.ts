@@ -7,18 +7,20 @@ declare var $:any;
 import * as moment_ from 'moment';
 export const moment =  moment_["default"];
 
+
 @Component({
-  selector: 'app-turno',
-  templateUrl: './turno.component.html',
-  styleUrls: ['./turno.component.css']
+  selector: 'app-farmacia-turno',
+  templateUrl: './farmacia-turno.component.html',
+  styleUrls: ['./farmacia-turno.component.css']
 })
-export class TurnoComponent implements OnInit {
+export class FarmaciaTurnoComponent implements OnInit {
+
   public mesLista: string[];
   public anio: string;  
   public mes: string;  
   
-  constructor() { 
 
+  constructor() {
     let fecha =Date();
     const dateAnio= moment(fecha).format('YYYY');
     const dateMes= moment(fecha).format('MM');
@@ -27,8 +29,7 @@ export class TurnoComponent implements OnInit {
     this.mes=dateMes;
     this.anio=dateAnio;
 
-
-  }
+   }
 
   ngOnInit() {
   }
