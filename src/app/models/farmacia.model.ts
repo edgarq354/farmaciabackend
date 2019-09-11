@@ -20,6 +20,23 @@ export interface FarmaciaInterface {
     activo?:boolean;
 }
 
+export interface FarmaciaTurnoInterface {
+    id?: string;
+    nombre_dia?: string;
+    dia?: number;
+    id_tbfarmacia?: number;
+    hora_inicio?: string;
+    hora_fin?: string;
+    activo?: number;
+    cantidad?: number;
+    idtbfarmacia?:number,
+    idtbturno?:number
+}
+ 
+
+
+
+
 
 
 

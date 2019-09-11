@@ -7,7 +7,7 @@ export interface HorarioInterface {
     hora_fin?: string;
     activo: number;
 }
-
+ 
 
 export class Horario {
     constructor(
