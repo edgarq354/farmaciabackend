@@ -23,6 +23,7 @@ export interface FarmaciaInterface {
 export interface FarmaciaTurnoInterface {
     id?: string;
     nombre_dia?: string;
+    fecha?: string;
     dia?: number;
     id_tbfarmacia?: number;
     hora_inicio?: string;

@@ -110,6 +110,7 @@ export class FarmaciaTurnoComponent implements OnInit {
 }
 
   ngOnInit() {
+    this.listarFarmaciaTurno();
   }
 
   // metodo para cargar la lista de Tipos
