@@ -17,8 +17,28 @@
                         <h4 class="title">Lista de Farmacias Turno</h4>
                         <div class="toolbar">
                             <h4 class="card-title">
-                                <button class="btn btn-primary btn-fill" data-toggle="modal" data-target="#idModalTipo"><i class="fa fa-plus"></i>NUEVO</button>
+                                <button class="btn btn-primary btn-fill" (click)="InsertarTurno();"><i class="fa fa-plus"></i>GENERAR TURNO {{anio}}</button>
                             </h4>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="title">Desde:</label>
+                                    <div class="form-group">
+                                        <input id="datepicker" name="fechaInicio" [(ngModel)]='fechaInicio' type="date" class="form-control datepicker" placeholder="Desde" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="title">Hasta:</label>
+                                    <div class="form-group">
+                                        <input id="datepicker" name="fechaFin" [(ngModel)]='fechaFin' type="date" class="form-control datepicker" placeholder="Hasta" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary btn-fill" (click)="listarFarmaciaTurno();"><i class="fa fa-search"></i>BUSCAR</button>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="fresh-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0 " width="100%;" style="width:100%;">
@@ -31,7 +51,7 @@
                                         <th>Hora final</th>
                                         <th>Estado</th>
                                         <th>Cantidad</th>
-                                        <th class="disabled-sorting text-right">Acción</th>
+                                        <th class="disabled-sorting text-center">Acción</th>
                                     </tr>
                                 </thead>
 
@@ -43,16 +63,18 @@
                                         <td>{{row.fecha}}</td>
                                         <td>{{row.hora_inicio}}</td>
                                         <td>{{row.hora_fin}}</td>
-                                        <td>{{row.cantidad}} farmacias</td>
-                                        <td class="td-actions text-right">
+                                        <td class="td-actions text-center">
                                             <bSwitch [(ngModel)]="row.activo">
                                             </bSwitch>
                                         </td>
-                                        <td class="text-right ">
-                                            <a class="btn btn-simple btn-warning btn-icon" rel="tooltip" data-placement="top" title="Editar">
-                                                <i class="fa fa-edit"></i>
+
+                                        <td>{{row.cantidad}} farmacias</td>
+
+                                        <td class="text-left">
+                                            <a class="btn  btn-primary btn-fill" rel="tooltip" data-placement="top" (click)="abrirTurno(i)" title="Agregar farmacias de turno">
+                                                <i class="fa fa-plus"> </i> Agregar
                                             </a>
-                                            <a class="btn btn-simple btn-danger btn-icon remove" rel="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-times"></i></a>
+
                                         </td>
                                     </tr>
                                 </tbody>

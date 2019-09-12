@@ -24,7 +24,10 @@ export const moment =  moment_["default"];
 @Component({
   selector: 'app-farmacia-turno',
   templateUrl: './farmacia-turno.component.html',
-  styleUrls: ['./farmacia-turno.component.css']
+  styleUrls: ['./farmacia-turno.component.css'],
+  providers: [
+    FarmaciaService,
+    globalFunciones]
 })
 export class FarmaciaTurnoComponent implements OnInit {
    // Decorator wires up blockUI instance
@@ -55,9 +58,19 @@ export class FarmaciaTurnoComponent implements OnInit {
     private _router: Router, 
     private _globalFuncion:globalFunciones,
     private _farmaciaService: FarmaciaService ) {
+ 
+      
+
     let fecha =Date();
     const dateAnio= moment(fecha).format('YYYY');
     const dateMes= moment(fecha).format('MM');
+
+      let fecha_2= new Date();
+      fecha_2.setDate(fecha_2.getDate() +7);
+      const dateStringFin = moment(fecha_2).format('YYYY-MM-DD');
+      const dateStringInicio = moment(fecha).format('YYYY-MM-DD');
+      this.fechaInicio=dateStringInicio;
+      this.fechaFin=dateStringFin;
 
     //this.mesLista==["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];  
     this.mes=dateMes;
@@ -96,7 +109,7 @@ export class FarmaciaTurnoComponent implements OnInit {
       id_tbfarmacia:0,
       hora_inicio:'',
       hora_fin:'',
-      activo:0,
+      activo:false,
       cantidad:0,
       idtbfarmacia:0,
       idtbturno:0
@@ -107,9 +120,12 @@ export class FarmaciaTurnoComponent implements OnInit {
     this.mensaje=""; 
    this.swVer=false;
   }
+
+  moment.locale('es');
 }
 
   ngOnInit() {
+     
     this.listarFarmaciaTurno();
   }
 
@@ -119,7 +135,7 @@ export class FarmaciaTurnoComponent implements OnInit {
   this.blockUI.start('Cargando...'); 
   
   let jsonData={
-    anio:1, 
+    anio:this.anio, 
    };
   this._farmaciaService.insertarTurno(this.pin,jsonData,'').subscribe(            
     result => {    
@@ -145,9 +161,10 @@ let jsonData={
   fecha_inicio: this.fechaInicio,
   fecha_fin: this.fechaFin 
  };
+ //console.log(JSON.stringify(jsonData));  
 this._farmaciaService.listarTurno(this.pin,jsonData).subscribe(            
   result => {    
-   // console.log(JSON.stringify(result));    
+  // console.log(JSON.stringify(result));    
     if (result.suceso != 1) {
       this.mensaje = result.mensaje;          
     }else{
@@ -174,5 +191,12 @@ this._farmaciaService.listarTurno(this.pin,jsonData).subscribe(
 )
 }
 
+abrirTurno(index)
+  {
+    this._router.navigate(['/turno-editar',this.farmaciaTurnoLista[index].id] );
+  }
+
+
+  
 
 }

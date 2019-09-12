@@ -40,28 +40,32 @@
                                         Ingrese su razon social. min(5)   </small>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label>Nit  </label>
-                            <input type="text" minlength="5" placeholder="Nit" [(ngModel)]="farmacia.nit" name="Nit" #Nit="ngModel" class="form-control">
+                            <label>Nit</label>
+                            <input type="text" placeholder="Nit" [(ngModel)]="farmacia.nit" name="Nit" #Nit="ngModel" class="form-control">
 
                         </div>
 
                         <div class="form-group col-md-6 col-sm-12">
-                            <label>Correo <span class="text-danger">*</span></label>
-                            <input type="text" minlength="5" placeholder="Nit" [(ngModel)]="farmacia.correo" class="form-control" name="Correo" required #Correo="ngModel">
-                            <small [hidden]="Correo.valid || (Correo.pristine && !fUsuario.submitted)" class="text-danger">
-                                                Ingrese su Numero de NIT. min(5)   </small>
+                            <label>Correo  </label>
+                            <input type="text" placeholder="Correo" [(ngModel)]="farmacia.correo" class="form-control" name="Correo" #Correo="ngModel">
+
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
-                            <label>Telefono <span class="text-danger">*</span></label>
-                            <input type="number" minlength="5" placeholder="Nit" [(ngModel)]="farmacia.telefono" class="form-control" name="Telefono" required #Telefono="ngModel">
-                            <small [hidden]="Telefono.valid || (Telefono.pristine && !fUsuario.submitted)" class="text-danger">
-                                                    Ingrese su Numero de NIT. min(5)   </small>
+                            <label>Telefono  </label>
+                            <input type="number" placeholder="Telefono" [(ngModel)]="farmacia.telefono" class="form-control" name="Telefono" #Telefono="ngModel">
+
                         </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label>Celular  </label>
+                            <input type="number" placeholder="Celular" [(ngModel)]="farmacia.celular" class="form-control" name="Celular" #Celular="ngModel">
+
+                        </div>
+
                         <div class="form-group col-md-6 col-sm-12">
                             <label>Dirección <span class="text-danger">*</span></label>
                             <input type="text" minlength="5" placeholder="Dirección" [(ngModel)]="farmacia.direccion" class="form-control" name="Direccion" required #Direccion="ngModel">
                             <small [hidden]="Direccion.valid || (Direccion.pristine && !fUsuario.submitted)" class="text-danger">
-                                                        Ingrese su Numero de NIT. min(5)   </small>
+                                                        Ingrese su Dirección min(5)   </small>
                         </div>
                     </div>
 

@@ -65,7 +65,11 @@ const routes: Routes = [
       {
         path: 'farmacia-turno',
         loadChildren: './component/farmacia-turno/farmacia-turno.module#FarmaciaTurnoModule'
-      }            
+      }  ,
+      {
+        path: 'turno-editar/:id',
+        loadChildren: './component/turno-editar/turno-editar.module#TurnoEditarModule'
+      }             
     ]
   }
 ];

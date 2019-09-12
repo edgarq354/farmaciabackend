@@ -58,13 +58,14 @@ export class FarmaciaComponent  {
         nit:'',
         correo:'',
         telefono:'',
+        celular:'',
         direccion:'',
         fecha_registro:'',
-        calificacion:'',
-        ranking:'',
+        calificacion:'0',
+        ranking:'0',
         id_tbcomentario:'',
-        latitud:'',
-        longitud:'',
+        latitud:'0',
+        longitud:'0',
         indicacion:'',
         abierto_cerrado:'',
         turno:''
@@ -142,6 +143,7 @@ listarFarmacia(){
 insertarFarmacia(){
   // Start blocking
   this.blockUI.start('Insertando...'); 
+  console.log(JSON.stringify(this.farmacia));
   this._farmaciaService.insertarFarmacia(
                                         this.pin, 
                                         this.farmacia, 
@@ -190,13 +192,16 @@ insertarORmodificarFarmacia(idModal,isValid:boolean){
   if(isValid==true){
   $('#'+idModal).modal('hide'); 
   if(this.farmacia.nombre.length>=3){
-    if(this.farmacia.id==null){   
+    console.log(JSON.stringify(this.farmacia));
+    if(this.farmacia.id==null||this.farmacia.id==""){   
+      console.log("Id null");
       /*this.mensaje='insertar -> ' 
                             + 'DescripcionEspacio: '+ this.espacio.Descripcion;*/   
       this.insertarFarmacia();        
     } 
   }else{
     this.mensaje='Al menos debe haber 3 caracteres.';
+    console.log(this.mensaje);
   }    
 } else
 {
@@ -225,6 +230,7 @@ limpiar(){
     nit:'',
     correo:'',
     telefono:'',
+    celular:'',
     direccion:'',
     fecha_registro:'',
     calificacion:'',

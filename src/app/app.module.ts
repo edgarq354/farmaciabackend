@@ -19,14 +19,12 @@ import { LoginComponent } from './component/login/login.component';
  //registrar la localizacion
 import { registerLocaleData } from '@angular/common';
 
-
-
-    // importar locales
-    import localePy from '@angular/common/locales/es-PY';
+// importar locales
+import localePy from '@angular/common/locales/es-PY';
 import { MapaComponent } from './component/mapa/mapa.component';
 
-    // registrar los locales con el nombre que quieras utilizar a la hora de proveer
-    registerLocaleData(localePy, 'es');
+// registrar los locales con el nombre que quieras utilizar a la hora de proveer
+registerLocaleData(localePy, 'es');
 
 
 @NgModule({
@@ -34,7 +32,7 @@ import { MapaComponent } from './component/mapa/mapa.component';
     AppComponent,
     IndexComponent,
     LoginComponent,
-    MapaComponent 
+    MapaComponent  
   ],
   imports: [
     BrowserModule,
@@ -52,4 +50,6 @@ import { MapaComponent } from './component/mapa/mapa.component';
   providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+}

@@ -7,6 +7,7 @@ export interface FarmaciaInterface {
     nit?:string;
     correo?:string;
     telefono?: string;
+    celular?: string;
     direccion?: string;
     fecha_registro?: string;
     calificacion?: string;
@@ -18,6 +19,8 @@ export interface FarmaciaInterface {
     abierto_cerrado?:string;
     turno?:string;
     activo?:boolean;
+    sw_turno?:boolean;
+    idtbturno?:number;
 }
 
 export interface FarmaciaTurnoInterface {
@@ -28,7 +31,7 @@ export interface FarmaciaTurnoInterface {
     id_tbfarmacia?: number;
     hora_inicio?: string;
     hora_fin?: string;
-    activo?: number;
+    activo?: boolean;
     cantidad?: number;
     idtbfarmacia?:number,
     idtbturno?:number

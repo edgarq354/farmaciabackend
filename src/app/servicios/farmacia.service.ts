@@ -50,6 +50,21 @@ export class FarmaciaService {
                                 options
                             ).pipe(map(res => res.json())); 
     }
+
+        /**
+     * Esta función lista los espacios.     
+     */
+    getTurnoPorId(pin,jsonData) {
+        let body = jsonData;
+        //console.log(JSON.stringify(body));
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(
+                                this.url+this.nombreTurno + 'getTurnoPorId', 
+                                body, 
+                                options
+                            ).pipe(map(res => res.json())); 
+    }
     
     /**
      * Esta función lista los espacios.     
@@ -61,6 +76,21 @@ export class FarmaciaService {
         let options = new RequestOptions({ headers: headers });
         return this._http.post(
                                 this.url+this.nombre + 'lista_farmacia', 
+                                body, 
+                                options
+                            ).pipe(map(res => res.json())); 
+    }
+
+      /**
+     * Esta función lista los espacios.     
+     */
+    lista_farmacia_todo_turno_por_id(pin,jsonData) {
+        let body = jsonData;
+        //console.log(JSON.stringify(body));
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(
+                                this.url+this.nombre + 'lista_farmacia_todo_turno_por_id', 
                                 body, 
                                 options
                             ).pipe(map(res => res.json())); 

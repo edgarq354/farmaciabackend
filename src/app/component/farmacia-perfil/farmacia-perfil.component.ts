@@ -75,6 +75,7 @@ export class FarmaciaPerfilComponent implements OnInit {
       nit:'',
       correo:'',
       telefono:'',
+      celular:'',
       direccion:'',
       fecha_registro:'',
       calificacion:'',
