@@ -18,7 +18,7 @@
                 <div class="card">
 
                     <div class="col-md-12">
-                        <h4 class="title"> {{titulo}}</h4>
+                        <h4 class="title"> {{titulo}} ({{turno.fecha}}) <button type="button" class="btn btn-primary btn-fill" type="button" (click)="actualizar_farmacia_turno();">Actualizar</button></h4>
                     </div>
 
                     <div class="col-md-3 col-sm-12">
@@ -78,7 +78,8 @@
                                         </td>
                                         <td>{{row.nombre}}</td>
                                         <td>{{row.direccion}}</td>
-                                        <td class="td-actions text-right">
+                                        <td class="  text-right">
+                                            {{row.sw_turno}}
                                             <bSwitch [(ngModel)]="row.sw_turno">
                                             </bSwitch>
                                         </td>
@@ -87,9 +88,11 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!--<pre>{{turno|json}}</pre> -->
+
                         <pre>{{farmaciaLista|json}}</pre>
                     </div>
-                    <!-- end content-->
+
                 </div>
 
             </div>

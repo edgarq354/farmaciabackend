@@ -99,11 +99,11 @@ ngOnInit(){
       "contrasenia":this.Password 
     };
 
-    //////console.log(JSON.stringify(json));
+     console.log(JSON.stringify(json));
     this._usuarioService.iniciar_sesion(this.pin,json).subscribe(
       result => {
         localStorage.setItem('cargando','false');
-       // console.log(JSON.stringify(result));
+         console.log(JSON.stringify(result));
           this.mensaje = result.mensaje;
         
 

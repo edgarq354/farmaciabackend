@@ -31,6 +31,8 @@ export class TurnoEditarComponent implements OnInit {
   public pin: string;
 
   public farmaciaLista : FarmaciaInterface[]; 
+  public farmaciaListaNuevo : FarmaciaInterface[]; 
+  public farmaciaAuxiliar : FarmaciaInterface; 
   public turno : FarmaciaTurnoInterface; 
 
 
@@ -64,6 +66,7 @@ export class TurnoEditarComponent implements OnInit {
         id:'',
         nombre_dia:'',
         dia:0,
+        fecha:'',
         id_tbfarmacia:0,
         hora_inicio:'',
         hora_fin:'',
@@ -72,6 +75,7 @@ export class TurnoEditarComponent implements OnInit {
         idtbfarmacia:0,
         idtbturno:0
       };
+      this.farmaciaListaNuevo=[];
 
     }
 
@@ -147,7 +151,7 @@ this._farmaciaService.getTurnoPorId(this.pin,jsonData).subscribe(
     this.blockUI.stop(); 
     this._globalFuncion.alertError("Error de conexión!");
   }
-)
+);
 }
 
 actualizarActivoTurno()
@@ -172,7 +176,63 @@ actualizarSWTurnoFarmacia()
         sw=true;
       } 
       this.farmaciaLista[i].sw_turno=sw;
+      this.farmaciaLista[i].idtbturno=Number(this.turno.id);
     }
   }
+
+  actualizar_farmacia_turno(){
+    this.insertarFarmaciaListaNuevo();
+ // Start blocking
+ this.blockUI.start('Cargando...'); 
+
+ let jsonData={
+   farmaciaTurno:this.farmaciaListaNuevo,
+   turno:this.turno
+  };
+
+  console.log(JSON.stringify(jsonData));
+
+ this._farmaciaService.insertarFarmaciaTurno(this.pin,jsonData,"").subscribe(            
+   result => {    
+    // console.log(JSON.stringify(result));    
+     if (result.suceso != 1) {
+       this.mensaje = result.mensaje;          
+     }else{
+       this.turno=result.turno;
+     }
+     this.blockUI.stop(); 
+     this.getTurno(); 
+     
+   },
+   error => {
+     this.blockUI.stop(); 
+     this._globalFuncion.alertError("Error de conexión!");
+   }
+ )
+  }
+
+
+   
+insertarFarmaciaListaNuevo()
+{
+  let j=0;
+  for(let i=0;i<this.farmaciaLista.length;i++)
+  {
+     
+     
+      this.farmaciaAuxiliar={
+        id:'0',
+        idtbturno:0,
+        sw_turno:false
+      }
+      this.farmaciaAuxiliar.sw_turno=this.farmaciaLista[i].sw_turno;
+      this.farmaciaAuxiliar.idtbturno=this.farmaciaLista[i].idtbturno;
+      this.farmaciaAuxiliar.id=this.farmaciaLista[i].id;
+      this.farmaciaListaNuevo[j]=this.farmaciaAuxiliar;
+      j++;
+    
+     
+  }
+}
 
 }
